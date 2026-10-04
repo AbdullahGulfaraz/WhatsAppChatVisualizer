@@ -13,10 +13,15 @@
   background-position: 0 0, 17px 17px;
 }
 
-/* Custom thin scrollbars */
+/* Touch & tap responsiveness */
+button, select, input, a {
+  touch-action: manipulation;
+}
+
+/* Custom scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -24,15 +29,15 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(140, 150, 160, 0.4);
+  background: rgba(140, 150, 160, 0.35);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(140, 150, 160, 0.7);
+  background: rgba(140, 150, 160, 0.65);
 }
 
-/* Search match highlights */
+/* Highlight search terms */
 .highlight-search {
   background-color: #fef08a;
   color: #854d0e;
@@ -44,4 +49,16 @@
 .dark .highlight-search {
   background-color: #ca8a04;
   color: #ffffff;
+}
+
+/* Print view optimization */
+@media print {
+  header, aside, #chat-footer-bar, .h-14 {
+    display: none !important;
+  }
+  #chat-container {
+    overflow: visible !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
 }
