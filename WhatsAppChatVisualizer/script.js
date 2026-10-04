@@ -1,0 +1,563 @@
+// State storage
+const state = {
+    messages: [],
+    participants: new Set(),
+    currentUser: null,
+    chatTitle: 'WhatsApp Chat',
+    searchQuery: '',
+    colorPalette: [
+        '#e11d48', '#2563eb', '#7c3aed', '#059669',
+        '#d97706', '#db2777', '#0891b2', '#4f46e5'
+    ],
+    userColorMap: new Map()
+};
+
+// Sample export conversation
+const SAMPLE_CHAT = `14/03/2024, 09:30 - Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them.
+14/03/2024, 09:31 - Alex Johnson created group "Product Design Sprint 🚀"
+14/03/2024, 09:32 - Alex Johnson: Good morning team! Today we start wireframing the new dashboard.
+14/03/2024, 09:33 - Sophia Chen: Morning Alex! I've prepared the research metrics we gathered from the last customer feedback cycle.
+14/03/2024, 09:34 - Sophia Chen: <Media omitted>
+14/03/2024, 09:35 - Marcus Vance: Awesome. Quick question: are we keeping the dark mode toggle on the top navigation bar or moving it to user profile settings?
+14/03/2024, 09:36 - Alex Johnson: Top nav for quick access. 
+Here are the three criteria we need to meet:
+1. Fast response time
+2. Clean aesthetic
+3. Mobile friendly layout
+14/03/2024, 09:38 - Sophia Chen: Agreed! Check this Figma prototype reference: https://figma.com/@sprint-design
+14/03/2024, 09:40 - Marcus Vance: Looks solid. Let's do a quick sync at 2 PM to review the components.
+14/03/2024, 09:41 - Alex Johnson: Perfect. See you all then!
+15/03/2024, 14:02 - Sophia Chen: Hey guys, meeting starts in 5 minutes!
+15/03/2024, 14:03 - Marcus Vance: Jumping in right now.
+15/03/2024, 14:04 - Alex Johnson: On my way!`;
+
+// Helper to test if a string actually has readable text (strips zero-width/unicode spaces)
+function hasVisibleText(text) {
+    if (!text) return false;
+    return text.replace(/[\s\u200B-\u200D\uFEFF\u00A0\u202F\u200E\u200F]/g, '').length > 0;
+}
+
+/**
+ * Universal WhatsApp chat parser
+ */
+function parseWhatsAppText(rawText) {
+    if (!rawText) return [];
+
+    const lines = rawText.split(/\r?\n/);
+    const parsed = [];
+    let currentMsg = null;
+
+    // Regex patterns supporting standard, narrow-spaces, & unicode spaces
+    const androidRegex = /^(\d{1,2}[\/\.\-]\d{1,2}[\/\.\-]\d{2,4}),?\s+(\d{1,2}:\d{2}(?::\d{2})?(?:[\s\u202F\u00A0]*[AaPp][Mm])?)\s+-\s+(?:([^:]+?):\s*)?(.*)$/;
+    const iosRegex = /^\[(\d{1,2}[\/\.\-]\d{1,2}[\/\.\-]\d{2,4}),?\s+(\d{1,2}:\d{2}(?::\d{2})?(?:[\s\u202F\u00A0]*[AaPp][Mm])?)\]\s+(?:([^:]+?):\s*)?(.*)$/;
+
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trimEnd();
+        if (!line) continue;
+
+        let match = line.match(iosRegex);
+        if (!match) {
+            match = line.match(androidRegex);
+        }
+
+        if (match) {
+            // Commit previous message ONLY if it has real visible content
+            if (currentMsg && hasVisibleText(currentMsg.content)) {
+                parsed.push(currentMsg);
+            }
+
+            const dateStr = match[1];
+            const timeStr = match[2];
+            const sender = match[3] ? match[3].trim() : null;
+            const content = match[4] || '';
+
+            const isSystem = !sender ||
+                content.includes('Messages and calls are end-to-end encrypted') ||
+                content.includes('created group') ||
+                content.includes('added') ||
+                content.includes('left') ||
+                content.includes('removed');
+
+            currentMsg = {
+                id: 'msg-' + parsed.length + '-' + Date.now(),
+                date: dateStr,
+                time: timeStr,
+                sender: sender || (isSystem ? 'System' : 'Unknown'),
+                content: content,
+                isSystem: isSystem
+            };
+        } else {
+            if (currentMsg) {
+                currentMsg.content += '\n' + line;
+            }
+        }
+    }
+
+    // Final check
+    if (currentMsg && hasVisibleText(currentMsg.content)) {
+        parsed.push(currentMsg);
+    }
+
+    return parsed;
+}
+
+function assignParticipantColors(participants) {
+    state.userColorMap.clear();
+    let index = 0;
+    participants.forEach(p => {
+        state.userColorMap.set(p, state.colorPalette[index % state.colorPalette.length]);
+        index++;
+    });
+}
+
+function processChatData(rawText, title = 'WhatsApp Conversation') {
+    const messages = parseWhatsAppText(rawText);
+    if (!messages || messages.length === 0) {
+        alertFallback('No readable WhatsApp messages could be parsed from this text.');
+        return;
+    }
+
+    state.messages = messages;
+    state.chatTitle = title;
+
+    // Extract participants
+    const participants = new Set();
+    messages.forEach(m => {
+        if (!m.isSystem && m.sender && m.sender !== 'System') {
+            participants.add(m.sender);
+        }
+    });
+    state.participants = participants;
+
+    assignParticipantColors(participants);
+
+    // Default perspective to first active participant
+    const pArray = Array.from(participants);
+    if (pArray.length > 0) {
+        state.currentUser = pArray[0];
+    } else {
+        state.currentUser = null;
+    }
+
+    updateSidebarAndStats();
+    renderChatMessages();
+}
+
+function updateSidebarAndStats() {
+    const select = document.getElementById('user-select');
+    select.innerHTML = '';
+
+    if (state.participants.size === 0) {
+        const opt = document.createElement('option');
+        opt.textContent = 'No participants found';
+        select.appendChild(opt);
+    } else {
+        state.participants.forEach(user => {
+            const opt = document.createElement('option');
+            opt.value = user;
+            opt.textContent = user;
+            if (user === state.currentUser) {
+                opt.selected = true;
+            }
+            select.appendChild(opt);
+        });
+    }
+
+    // Update statistics
+    document.getElementById('stat-total').textContent = state.messages.length.toLocaleString();
+    document.getElementById('stat-participants').textContent = state.participants.size;
+    document.getElementById('participants-count-tag').textContent = state.participants.size;
+
+    if (state.messages.length > 0) {
+        const first = state.messages[0].date;
+        const last = state.messages[state.messages.length - 1].date;
+        document.getElementById('stat-daterange').textContent = `${first} → ${last}`;
+    } else {
+        document.getElementById('stat-daterange').textContent = 'No dates';
+    }
+
+    // Populate participants list
+    const pListContainer = document.getElementById('participants-list');
+    pListContainer.innerHTML = '';
+
+    const msgCounts = {};
+    state.messages.forEach(m => {
+        if (!m.isSystem && m.sender) {
+            msgCounts[m.sender] = (msgCounts[m.sender] || 0) + 1;
+        }
+    });
+
+    state.participants.forEach(user => {
+        const color = state.userColorMap.get(user) || '#059669';
+        const isCurrent = user === state.currentUser;
+        const count = msgCounts[user] || 0;
+
+        const item = document.createElement('div');
+        item.className = `flex items-center justify-between p-2 rounded-xl text-xs transition cursor-pointer ${isCurrent ? 'bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800' : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+            }`;
+        item.onclick = () => {
+            state.currentUser = user;
+            select.value = user;
+            renderChatMessages();
+            updateSidebarAndStats();
+        };
+
+        item.innerHTML = `
+      <div class="flex items-center space-x-2 truncate">
+        <span class="w-3 h-3 rounded-full shrink-0" style="background-color: ${color}"></span>
+        <span class="font-medium text-gray-800 dark:text-gray-200 truncate">${escapeHTML(user)} ${isCurrent ? '<span class="text-[10px] text-wa-teal font-bold">(You)</span>' : ''}</span>
+      </div>
+      <span class="text-[11px] font-semibold text-gray-400 bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded-full">${count}</span>
+    `;
+        pListContainer.appendChild(item);
+    });
+
+    // Chat Header Bar
+    document.getElementById('chat-title').textContent = state.chatTitle;
+    const sub = state.participants.size > 2
+        ? `${state.participants.size} participants: ${Array.from(state.participants).slice(0, 3).join(', ')}...`
+        : Array.from(state.participants).join(', ') || 'No members';
+    document.getElementById('chat-subtitle').textContent = sub;
+    document.getElementById('chat-header-avatar').textContent = (state.chatTitle[0] || 'W').toUpperCase();
+}
+
+function formatMessageText(text, searchQuery) {
+    if (!text) return '';
+
+    if (text.includes('<Media omitted>') || text.includes('image omitted') || text.includes('audio omitted') || text.includes('video omitted') || text.includes('sticker omitted')) {
+        return `
+      <div class="flex items-center gap-2 p-2 my-1 rounded-lg bg-black/5 dark:bg-white/5 border border-dashed border-gray-400/40 text-xs text-gray-600 dark:text-gray-300">
+        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        <span class="font-medium italic">Attachment (Media omitted)</span>
+      </div>
+    `;
+    }
+
+    let escaped = escapeHTML(text);
+
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    escaped = escaped.replace(urlRegex, (url) => {
+        return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-blue-500 dark:text-blue-400 hover:underline break-all">${url}</a>`;
+    });
+
+    if (searchQuery && searchQuery.trim() !== '') {
+        const queryEscaped = escapeRegExp(searchQuery.trim());
+        const searchReg = new RegExp(`(${queryEscaped})`, 'gi');
+        escaped = escaped.replace(searchReg, `<mark class="highlight-search">$1</mark>`);
+    }
+
+    return escaped.replace(/\n/g, '<br>');
+}
+
+function renderChatMessages() {
+    const emptyState = document.getElementById('empty-state');
+    const messagesList = document.getElementById('messages-list');
+
+    if (state.messages.length === 0) {
+        emptyState.classList.remove('hidden');
+        messagesList.classList.add('hidden');
+        return;
+    }
+
+    emptyState.classList.add('hidden');
+    messagesList.classList.remove('hidden');
+    messagesList.innerHTML = '';
+
+    let lastDate = null;
+    let matchCount = 0;
+    const search = state.searchQuery.toLowerCase().trim();
+
+    state.messages.forEach((msg) => {
+        // Date separator
+        if (msg.date && msg.date !== lastDate) {
+            lastDate = msg.date;
+            const dateDivider = document.createElement('div');
+            dateDivider.className = 'flex justify-center my-3 sticky top-2 z-10';
+            dateDivider.innerHTML = `
+        <span class="bg-white/80 dark:bg-gray-800/90 text-gray-600 dark:text-gray-300 text-[11px] font-semibold px-3 py-1 rounded-full shadow-2xs backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50">
+          ${escapeHTML(msg.date)}
+        </span>
+      `;
+            messagesList.appendChild(dateDivider);
+        }
+
+        const matchesSearch = !search || msg.content.toLowerCase().includes(search) || msg.sender.toLowerCase().includes(search);
+        if (search && matchesSearch) matchCount++;
+
+        // System message rendering
+        if (msg.isSystem) {
+            if (!hasVisibleText(msg.content)) return; // Skip if empty!
+
+            const sysBubble = document.createElement('div');
+            sysBubble.className = `flex justify-center my-1.5 transition-opacity ${matchesSearch ? 'opacity-100' : 'opacity-25'}`;
+            sysBubble.innerHTML = `
+        <div class="bg-amber-100/90 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800/40 text-amber-900 dark:text-amber-300 text-[11px] text-center px-3.5 py-1.5 rounded-lg max-w-md shadow-2xs font-medium leading-relaxed">
+          ${formatMessageText(msg.content, state.searchQuery)}
+        </div>
+      `;
+            messagesList.appendChild(sysBubble);
+            return;
+        }
+
+        // Normal chat message
+        const isMe = state.currentUser && (msg.sender === state.currentUser);
+        const bubbleWrapper = document.createElement('div');
+        bubbleWrapper.className = `flex flex-col ${isMe ? 'items-end' : 'items-start'} my-1 transition-opacity ${matchesSearch ? 'opacity-100' : 'opacity-20'}`;
+
+        const senderColor = state.userColorMap.get(msg.sender) || '#10b981';
+
+        const bubble = document.createElement('div');
+        bubble.className = `relative max-w-[85%] sm:max-w-[70%] rounded-2xl px-3.5 pt-2 pb-1.5 text-xs shadow-xs break-words ${isMe
+                ? 'bg-wa-bubbleSentLight dark:bg-wa-bubbleSentDark text-gray-900 dark:text-gray-100 rounded-tr-none'
+                : 'bg-wa-bubbleRecvLight dark:bg-wa-bubbleRecvDark text-gray-900 dark:text-gray-100 rounded-tl-none border border-black/5 dark:border-white/5'
+            }`;
+
+        let senderHeader = '';
+        if (!isMe) {
+            senderHeader = `
+        <div class="text-[11px] font-bold mb-0.5 truncate" style="color: ${senderColor}">
+          ${escapeHTML(msg.sender)}
+        </div>
+      `;
+        }
+
+        bubble.innerHTML = `
+      ${senderHeader}
+      <div class="message-body leading-relaxed select-text text-gray-800 dark:text-gray-100">
+        ${formatMessageText(msg.content, state.searchQuery)}
+      </div>
+      <div class="flex items-center justify-end gap-1 mt-1 text-[10px] text-gray-500 dark:text-gray-400 select-none">
+        <span>${escapeHTML(msg.time)}</span>
+        ${isMe ? `
+          <svg class="w-3.5 h-3.5 text-blue-500 inline ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7m-7 4l4 4" />
+          </svg>
+        ` : ''}
+      </div>
+    `;
+
+        bubbleWrapper.appendChild(bubble);
+        messagesList.appendChild(bubbleWrapper);
+    });
+
+    // Search Badge counter
+    const searchBadge = document.getElementById('search-matches');
+    if (search) {
+        searchBadge.classList.remove('hidden');
+        searchBadge.textContent = `${matchCount} found`;
+    } else {
+        searchBadge.classList.add('hidden');
+    }
+
+    document.getElementById('footer-chat-info').textContent = `Loaded ${state.messages.length} messages (${state.participants.size} participants)`;
+}
+
+function escapeHTML(str) {
+    if (!str) return '';
+    return str.replace(/[&<>'"]/g,
+        tag => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            "'": '&#39;',
+            '"': '&quot;'
+        }[tag] || tag)
+    );
+}
+
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function alertFallback(msg) {
+    const banner = document.createElement('div');
+    banner.className = 'fixed top-5 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-4 py-2.5 rounded-xl shadow-xl z-50 flex items-center gap-2 border border-gray-700 animate-bounce';
+    banner.innerHTML = `
+    <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+    <span>${escapeHTML(msg)}</span>
+  `;
+    document.body.appendChild(banner);
+    setTimeout(() => banner.remove(), 4000);
+}
+
+// Drag & Drop File Handlers
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('file-input');
+
+dropzone.addEventListener('click', () => fileInput.click());
+
+['dragenter', 'dragover'].forEach(eventName => {
+    window.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropzone.classList.add('border-wa-teal', 'bg-emerald-50/30');
+    }, false);
+});
+
+['dragleave', 'drop'].forEach(eventName => {
+    window.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropzone.classList.remove('border-wa-teal', 'bg-emerald-50/30');
+    }, false);
+});
+
+window.addEventListener('drop', (e) => {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    if (files && files.length > 0) {
+        handleChatFile(files[0]);
+    }
+});
+
+fileInput.addEventListener('change', (e) => {
+    if (e.target.files.length > 0) {
+        handleChatFile(e.target.files[0]);
+    }
+});
+
+document.getElementById('btn-empty-browse').addEventListener('click', () => fileInput.click());
+
+function handleChatFile(file) {
+    if (!file.name.endsWith('.txt') && file.type !== 'text/plain') {
+        alertFallback('Please upload a valid .txt file exported from WhatsApp.');
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        const text = event.target.result;
+        const chatTitle = file.name.replace('.txt', '').replace(/^WhatsApp Chat - /, '');
+        processChatData(text, chatTitle);
+        setTimeout(() => {
+            const container = document.getElementById('chat-container');
+            container.scrollTop = container.scrollHeight;
+        }, 100);
+    };
+    reader.readAsText(file);
+}
+
+// User Perspective Switcher
+document.getElementById('user-select').addEventListener('change', (e) => {
+    state.currentUser = e.target.value;
+    renderChatMessages();
+    updateSidebarAndStats();
+});
+
+// Sample loaders
+document.getElementById('btn-load-sample').addEventListener('click', () => {
+    processChatData(SAMPLE_CHAT, 'Product Design Sprint 🚀');
+});
+
+document.getElementById('btn-empty-load-sample').addEventListener('click', () => {
+    processChatData(SAMPLE_CHAT, 'Product Design Sprint 🚀');
+});
+
+// Search functionality
+const searchInput = document.getElementById('search-input');
+const clearSearch = document.getElementById('clear-search');
+
+searchInput.addEventListener('input', (e) => {
+    state.searchQuery = e.target.value;
+    if (state.searchQuery.length > 0) {
+        clearSearch.classList.remove('hidden');
+    } else {
+        clearSearch.classList.add('hidden');
+    }
+    renderChatMessages();
+});
+
+clearSearch.addEventListener('click', () => {
+    searchInput.value = '';
+    state.searchQuery = '';
+    clearSearch.classList.add('hidden');
+    renderChatMessages();
+});
+
+// Navigation buttons
+document.getElementById('btn-jump-bottom').addEventListener('click', () => {
+    const container = document.getElementById('chat-container');
+    container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
+});
+
+document.getElementById('btn-jump-top').addEventListener('click', () => {
+    const container = document.getElementById('chat-container');
+    container.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Print & Export
+document.getElementById('btn-print').addEventListener('click', () => {
+    window.print();
+});
+
+document.getElementById('btn-export-json').addEventListener('click', () => {
+    if (state.messages.length === 0) {
+        alertFallback('No chat data to export. Please load or paste a chat first.');
+        return;
+    }
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state.messages, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", `${state.chatTitle || 'chat'}-export.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+});
+
+// Paste modal logic
+const pasteModal = document.getElementById('paste-modal');
+const pasteTextarea = document.getElementById('paste-textarea');
+
+document.getElementById('btn-paste-modal').addEventListener('click', () => {
+    pasteModal.classList.remove('hidden');
+    pasteTextarea.focus();
+});
+
+const closeModal = () => pasteModal.classList.add('hidden');
+document.getElementById('btn-close-paste').addEventListener('click', closeModal);
+document.getElementById('btn-cancel-paste').addEventListener('click', closeModal);
+
+document.getElementById('btn-apply-paste').addEventListener('click', () => {
+    const text = pasteTextarea.value.trim();
+    if (!text) {
+        alertFallback('Please paste chat contents first.');
+        return;
+    }
+    processChatData(text, 'Pasted Chat Conversation');
+    closeModal();
+    pasteTextarea.value = '';
+});
+
+// Theme switcher
+const btnTheme = document.getElementById('btn-theme-toggle');
+const themeSun = document.getElementById('theme-sun');
+const themeMoon = document.getElementById('theme-moon');
+
+function toggleTheme() {
+    if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        themeSun.classList.remove('hidden');
+        themeMoon.classList.add('hidden');
+        localStorage.setItem('chatflow_theme', 'light');
+    } else {
+        document.documentElement.classList.add('dark');
+        themeSun.classList.add('hidden');
+        themeMoon.classList.remove('hidden');
+        localStorage.setItem('chatflow_theme', 'dark');
+    }
+}
+
+btnTheme.addEventListener('click', toggleTheme);
+
+// Theme initialization
+if (localStorage.getItem('chatflow_theme') === 'dark' || (!('chatflow_theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+    themeSun.classList.add('hidden');
+    themeMoon.classList.remove('hidden');
+} else {
+    document.documentElement.classList.remove('dark');
+    themeSun.classList.remove('hidden');
+    themeMoon.classList.add('hidden');
+}

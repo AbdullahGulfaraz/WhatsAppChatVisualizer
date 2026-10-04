@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatFlow - Export Visualizer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        wa: {
+                            teal: '#00a884',
+                            tealDark: '#008069',
+                            green: '#25d366',
+                            bgLight: '#efeae2',
+                            bgDark: '#0b141a',
+                            bubbleSentLight: '#d9fdd3',
+                            bubbleSentDark: '#005c4b',
+                            bubbleRecvLight: '#ffffff',
+                            bubbleRecvDark: '#202c33',
+                            panelLight: '#f0f2f5',
+                            panelDark: '#111b21',
+                            borderLight: '#e9edef',
+                            borderDark: '#222d34'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+
+<body
+    class="bg-gray-100 dark:bg-gray-950 text-slate-800 dark:text-slate-100 h-screen flex flex-col font-sans transition-colors duration-200 select-none overflow-hidden">
+
+    <!-- Header -->
+    <header
+        class="h-14 bg-wa-teal dark:bg-wa-panelDark border-b border-wa-tealDark dark:border-wa-borderDark flex items-center justify-between px-4 sm:px-6 shadow-sm z-30 shrink-0">
+        <div class="flex items-center space-x-3">
+            <div
+                class="p-2 bg-emerald-600 dark:bg-wa-teal text-white rounded-xl shadow-inner flex items-center justify-center">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+            </div>
+            <div>
+                <h1 class="font-bold text-white text-base tracking-tight leading-tight">ChatFlow</h1>
+                <p class="text-[11px] text-emerald-100 dark:text-gray-400">WhatsApp Export Visualizer</p>
+            </div>
+        </div>
+
+        <!-- Header Actions -->
+        <div class="flex items-center space-x-2">
+            <button id="btn-load-sample"
+                class="text-xs bg-emerald-700 hover:bg-emerald-800 dark:bg-gray-800 dark:hover:bg-gray-700 text-white font-medium py-1.5 px-3 rounded-lg border border-emerald-500/30 transition flex items-center gap-1.5 shadow-sm">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                </svg>
+                <span class="hidden sm:inline">Load Sample</span>
+            </button>
+
+            <button id="btn-paste-modal"
+                class="text-xs bg-emerald-700 hover:bg-emerald-800 dark:bg-gray-800 dark:hover:bg-gray-700 text-white font-medium py-1.5 px-3 rounded-lg border border-emerald-500/30 transition flex items-center gap-1.5 shadow-sm">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                <span class="hidden sm:inline">Paste Text</span>
+            </button>
+
+            <button id="btn-export-json" title="Export as JSON"
+                class="p-2 text-white/90 hover:text-white hover:bg-emerald-700 dark:hover:bg-gray-800 rounded-lg transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+            </button>
+
+            <button id="btn-theme-toggle" title="Toggle Theme"
+                class="p-2 text-white/90 hover:text-white hover:bg-emerald-700 dark:hover:bg-gray-800 rounded-lg transition">
+                <svg id="theme-moon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <svg id="theme-sun" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-1 flex overflow-hidden">
+        <!-- Left Sidebar -->
+        <aside id="sidebar"
+            class="w-80 border-r border-gray-200 dark:border-wa-borderDark bg-white dark:bg-wa-panelDark flex flex-col transition-all duration-300 z-20 shrink-0">
+
+            <!-- Upload Drop Zone -->
+            <div class="p-3 border-b border-gray-200 dark:border-wa-borderDark">
+                <div id="dropzone"
+                    class="border-2 border-dashed border-gray-300 dark:border-gray-700 hover:border-wa-teal dark:hover:border-wa-teal rounded-xl p-3.5 text-center cursor-pointer transition bg-gray-50 dark:bg-gray-800/40 group">
+                    <input type="file" id="file-input" accept=".txt,text/plain" class="hidden">
+                    <svg class="w-7 h-7 mx-auto text-gray-400 group-hover:text-wa-teal transition mb-1.5" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                    </svg>
+                    <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">Drop exported .txt chat here</p>
+                    <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">or click to browse files</p>
+                </div>
+            </div>
+
+            <!-- User selection -->
+            <div class="p-3 border-b border-gray-200 dark:border-wa-borderDark">
+                <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1.5">
+                    Select Your Perspective:
+                </label>
+                <div class="relative">
+                    <select id="user-select"
+                        class="w-full text-xs font-medium bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg py-2 pl-3 pr-8 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-wa-teal focus:outline-none transition appearance-none">
+                        <option value="" disabled selected>Load chat to select</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                </div>
+                <p class="text-[10px] text-gray-400 dark:text-gray-500 mt-1">This participant will appear on the right
+                    as the sender.</p>
+            </div>
+
+            <!-- Quick stats overview -->
+            <div class="p-3 border-b border-gray-200 dark:border-wa-borderDark bg-gray-50/50 dark:bg-gray-900/30">
+                <div class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2">Chat
+                    Overview</div>
+                <div class="grid grid-cols-2 gap-2 text-center">
+                    <div
+                        class="bg-white dark:bg-gray-800 p-2 rounded-lg border border-gray-100 dark:border-gray-700/60 shadow-xs">
+                        <div id="stat-total" class="text-sm font-bold text-wa-teal dark:text-emerald-400">0</div>
+                        <div class="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-medium">Messages</div>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-gray-800 p-2 rounded-lg border border-gray-100 dark:border-gray-700/60 shadow-xs">
+                        <div id="stat-participants" class="text-sm font-bold text-indigo-500 dark:text-indigo-400">0
+                        </div>
+                        <div class="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-medium">Members</div>
+                    </div>
+                </div>
+                <div id="stat-daterange" class="mt-2 text-[11px] text-gray-500 dark:text-gray-400 text-center truncate">
+                    No dates available
+                </div>
+            </div>
+
+            <!-- Participants list -->
+            <div class="flex-1 overflow-y-auto p-3">
+                <div
+                    class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2 flex items-center justify-between">
+                    <span>Active Participants</span>
+                    <span id="participants-count-tag"
+                        class="text-[10px] bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 rounded-full font-bold">0</span>
+                </div>
+                <div id="participants-list" class="space-y-1.5">
+                    <div class="text-xs text-gray-400 text-center py-4 italic">No chat loaded</div>
+                </div>
+            </div>
+
+            <!-- Footer Jump Controls -->
+            <div
+                class="p-2.5 border-t border-gray-200 dark:border-wa-borderDark flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                <button id="btn-jump-bottom"
+                    class="flex items-center gap-1 hover:text-wa-teal dark:hover:text-emerald-400 transition font-medium">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
+                    Latest
+                </button>
+                <button id="btn-jump-top"
+                    class="flex items-center gap-1 hover:text-wa-teal dark:hover:text-emerald-400 transition font-medium">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                    </svg>
+                    Oldest
+                </button>
+            </div>
+        </aside>
+
+        <!-- Center Chat Canvas -->
+        <section class="flex-1 flex flex-col h-full overflow-hidden relative">
+            <div
+                class="h-14 px-4 bg-wa-panelLight dark:bg-wa-panelDark border-b border-wa-borderLight dark:border-wa-borderDark flex items-center justify-between shrink-0 z-10 shadow-xs">
+                <div class="flex items-center space-x-3 overflow-hidden">
+                    <div id="chat-header-avatar"
+                        class="w-9 h-9 rounded-full bg-emerald-700 text-white font-bold flex items-center justify-center shrink-0 text-sm shadow-xs">
+                        W</div>
+                    <div class="truncate">
+                        <h2 id="chat-title" class="font-semibold text-sm text-gray-900 dark:text-gray-100 truncate">
+                            Select or Upload a Chat</h2>
+                        <p id="chat-subtitle" class="text-xs text-gray-500 dark:text-gray-400 truncate">WhatsApp
+                            Conversation</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-2">
+                    <div class="relative w-44 sm:w-64">
+                        <input type="text" id="search-input" placeholder="Search in chat..."
+                            class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-xs rounded-full pl-8 pr-7 py-1.5 focus:outline-none focus:ring-1 focus:ring-wa-teal text-gray-800 dark:text-gray-100 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-gray-400 absolute left-2.5 top-2.5" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <button id="clear-search"
+                            class="absolute right-2 top-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hidden">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="search-matches"
+                        class="text-[11px] font-semibold text-gray-500 dark:text-gray-400 hidden whitespace-nowrap">
+                        0 matches
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Container -->
+            <div id="chat-container"
+                class="flex-1 overflow-y-auto p-4 sm:p-6 chat-bg-pattern-light dark:chat-bg-pattern-dark space-y-2.5 select-text">
+                <div id="empty-state"
+                    class="h-full flex flex-col items-center justify-center text-center p-6 max-w-md mx-auto">
+                    <div
+                        class="w-16 h-16 bg-wa-teal/10 text-wa-teal rounded-full flex items-center justify-center mb-4">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-base font-bold text-gray-800 dark:text-gray-200 mb-1">No Chat Loaded Yet</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-5 leading-relaxed">
+                        Drag and drop any standard WhatsApp exported .txt file anywhere on this screen, or try our
+                        sample chat to see it in action.
+                    </p>
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <button id="btn-empty-load-sample"
+                            class="bg-wa-teal hover:bg-wa-tealDark text-white text-xs font-semibold py-2 px-4 rounded-xl shadow transition">
+                            Load Sample Conversation
+                        </button>
+                        <button id="btn-empty-browse"
+                            class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-xs font-semibold py-2 px-4 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 shadow-2xs transition">
+                            Browse Files
+                        </button>
+                    </div>
+                </div>
+
+                <div id="messages-list" class="space-y-1.5 hidden max-w-4xl mx-auto"></div>
+            </div>
+
+            <!-- Footer Info -->
+            <div id="chat-footer-bar"
+                class="h-10 px-4 bg-wa-panelLight/80 dark:bg-wa-panelDark/80 backdrop-blur-xs border-t border-wa-borderLight dark:border-wa-borderDark flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400 shrink-0">
+                <span id="footer-chat-info">Displaying all parsed chat messages</span>
+                <button id="btn-print"
+                    class="hover:text-wa-teal dark:hover:text-emerald-400 font-medium flex items-center gap-1 transition">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                    </svg>
+                    Print / PDF
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Paste Modal -->
+    <div id="paste-modal"
+        class="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+        <div
+            class="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-xl w-full border border-gray-200 dark:border-gray-800 overflow-hidden flex flex-col max-h-[85vh]">
+            <div class="px-5 py-4 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+                <div>
+                    <h3 class="font-bold text-sm text-gray-900 dark:text-gray-100">Paste Exported Chat Text</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Paste logs from WhatsApp iOS or Android</p>
+                </div>
+                <button id="btn-close-paste" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 p-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="p-5 flex-1 flex flex-col">
+                <textarea id="paste-textarea" rows="12"
+                    placeholder="Example:&#10;14/03/2024, 10:14 - Alice: Hey everyone! Did you check the new project repo?&#10;14/03/2024, 10:15 - Bob: Yes, reviewing it right now. Looks super clean.&#10;14/03/2024, 10:16 - Charlie: <Media omitted>"
+                    class="w-full flex-1 p-3 text-xs font-mono bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-wa-teal focus:outline-none text-gray-800 dark:text-gray-100 resize-none"></textarea>
+            </div>
+            <div
+                class="px-5 py-3.5 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-2">
+                <button id="btn-cancel-paste"
+                    class="px-4 py-2 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-xl transition">Cancel</button>
+                <button id="btn-apply-paste"
+                    class="px-4 py-2 text-xs font-bold text-white bg-wa-teal hover:bg-wa-tealDark rounded-xl shadow transition">Parse
+                    & Visualize</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main JavaScript Logic -->
+    <script src="script.js"></script>
+</body>
+
+</html>
