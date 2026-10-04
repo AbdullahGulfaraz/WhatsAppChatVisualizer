@@ -347,6 +347,12 @@ Here are the three criteria we need to meet:
      * - Multi-line messages
      * - System notifications
      */
+    // Helper to test if a string actually has readable text (strips zero-width/unicode spaces)
+    function hasVisibleText(text) {
+      if (!text) return false;
+      return text.replace(/[\s\u200B-\u200D\uFEFF\u00A0\u202F\u200E\u200F]/g, '').length > 0;
+    }
+
     function parseWhatsAppText(rawText) {
       if (!rawText) return [];
 
@@ -354,28 +360,24 @@ Here are the three criteria we need to meet:
       const parsed = [];
       let currentMsg = null;
 
-      // Regular expressions for multiple formats
-      const iosRegex = /^\[(\d{1,2}[\/\.\-]\d{1,2}[\/\.\-]\d{2,4}),?\s+(\d{1,2}:\d{2}(?::\d{2})?(?:\s*[AaPp][Mm])?)\]\s+(?:([^:]+?):\s+)?(.*)$/;
-      const androidRegex = /^(\d{1,2}[\/\.\-]\d{1,2}[\/\.\-]\d{2,4}),?\s+(\d{1,2}:\d{2}(?::\d{2})?(?:\s*[AaPp][Mm])?)\s+-\s+(?:([^:]+?):\s+)?(.*)$/;
+      // Matches Android standard & with narrow-spaces/unicode spaces:
+      // "10/2/26, 12:12 PM - Abdullah: ." or "10/2/26, 12:12 PM - Abdullah:"
+      const androidRegex = /^(\d{1,2}[\/\.\-]\d{1,2}[\/\.\-]\d{2,4}),?\s+(\d{1,2}:\d{2}(?::\d{2})?(?:[\s\u202F\u00A0]*[AaPp][Mm])?)\s+-\s+(?:([^:]+?):\s*)?(.*)$/;
+      const iosRegex = /^\[(\d{1,2}[\/\.\-]\d{1,2}[\/\.\-]\d{2,4}),?\s+(\d{1,2}:\d{2}(?::\d{2})?(?:[\s\u202F\u00A0]*[AaPp][Mm])?)\]\s+(?:([^:]+?):\s*)?(.*)$/;
 
       for (let i = 0; i < lines.length; i++) {
         const line = lines[i].trimEnd();
         if (!line) continue;
 
         let match = line.match(iosRegex);
-        let isIOS = true;
-
         if (!match) {
           match = line.match(androidRegex);
-          isIOS = false;
         }
 
         if (match) {
-          // Commit previous message if any, ONLY if it contains text or is a system alert
-          if (currentMsg) {
-            if (currentMsg.isSystem || currentMsg.content.trim() !== '') {
-              parsed.push(currentMsg);
-            }
+          // Commit previous message ONLY if it has real visible content
+          if (currentMsg && hasVisibleText(currentMsg.content)) {
+            parsed.push(currentMsg);
           }
 
           const dateStr = match[1];
@@ -383,7 +385,6 @@ Here are the three criteria we need to meet:
           const sender = match[3] ? match[3].trim() : null;
           const content = match[4] || '';
 
-          // Determine if system message
           const isSystem = !sender || 
             content.includes('Messages and calls are end-to-end encrypted') ||
             content.includes('created group') ||
@@ -395,7 +396,7 @@ Here are the three criteria we need to meet:
             id: 'msg-' + parsed.length + '-' + Date.now(),
             date: dateStr,
             time: timeStr,
-            sender: sender || 'System',
+            sender: sender || (isSystem ? 'System' : 'Unknown'),
             content: content,
             isSystem: isSystem
           };
@@ -407,11 +408,9 @@ Here are the three criteria we need to meet:
         }
       }
 
-      // Commit the final message in the loop, applying the same empty-check filter
-      if (currentMsg) {
-        if (currentMsg.isSystem || currentMsg.content.trim() !== '') {
-          parsed.push(currentMsg);
-        }
+      // Check the final message
+      if (currentMsg && hasVisibleText(currentMsg.content)) {
+        parsed.push(currentMsg);
       }
 
       return parsed;
@@ -613,6 +612,8 @@ Here are the three criteria we need to meet:
 
         // System message rendering
         if (msg.isSystem) {
+          if (!hasVisibleText(msg.content)) return; // <-- Skip if empty!
+
           const sysBubble = document.createElement('div');
           sysBubble.className = `flex justify-center my-1.5 transition-opacity ${matchesSearch ? 'opacity-100' : 'opacity-25'}`;
           sysBubble.innerHTML = `
