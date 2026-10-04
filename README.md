@@ -3,7 +3,6 @@
 A lightweight, fully responsive, client-side web application that transforms exported WhatsApp `.txt` logs into an authentic, interactive chat interface[cite: 3].
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-00a884?style=for-the-badge&logo=vercel)](https://whatsappchatvisualizer.vercel.app/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
 ---
 
