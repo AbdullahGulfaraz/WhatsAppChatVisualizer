@@ -6,7 +6,7 @@ const state = {
   chatTitle: 'WhatsApp Chat',
   searchQuery: '',
   colorPalette: [
-    '#e11d48', '#2563eb', '#7c3aed', '#059669', 
+    '#e11d48', '#2563eb', '#7c3aed', '#059669',
     '#d97706', '#db2777', '#0891b2', '#4f46e5'
   ],
   userColorMap: new Map()
@@ -129,7 +129,7 @@ function parseWhatsAppText(rawText) {
       const sender = match[3] ? match[3].trim() : null;
       const content = match[4] || '';
 
-      const isSystem = !sender || 
+      const isSystem = !sender ||
         content.includes('Messages and calls are end-to-end encrypted') ||
         content.includes('created group') ||
         content.includes('added') ||
@@ -246,9 +246,8 @@ function updateSidebarAndStats() {
     const count = msgCounts[user] || 0;
 
     const item = document.createElement('div');
-    item.className = `flex items-center justify-between p-2.5 rounded-xl text-xs transition cursor-pointer select-none active:scale-98 ${
-      isCurrent ? 'bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800' : 'hover:bg-gray-100 dark:hover:bg-gray-800'
-    }`;
+    item.className = `flex items-center justify-between p-2.5 rounded-xl text-xs transition cursor-pointer select-none active:scale-98 ${isCurrent ? 'bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800' : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+      }`;
     item.onclick = () => {
       state.currentUser = user;
       select.value = user;
@@ -270,7 +269,7 @@ function updateSidebarAndStats() {
   });
 
   document.getElementById('chat-title').textContent = state.chatTitle;
-  const sub = state.participants.size > 2 
+  const sub = state.participants.size > 2
     ? `${state.participants.size} participants: ${Array.from(state.participants).slice(0, 3).join(', ')}...`
     : Array.from(state.participants).join(', ') || 'No members';
   document.getElementById('chat-subtitle').textContent = sub;
@@ -362,11 +361,10 @@ function renderChatMessages() {
     const senderColor = state.userColorMap.get(msg.sender) || '#10b981';
 
     const bubble = document.createElement('div');
-    bubble.className = `relative max-w-[88%] xs:max-w-[82%] sm:max-w-[70%] rounded-2xl px-3 py-1.5 sm:px-3.5 sm:pt-2 sm:pb-1.5 text-xs shadow-xs break-words ${
-      isMe 
-        ? 'bg-wa-bubbleSentLight dark:bg-wa-bubbleSentDark text-gray-900 dark:text-gray-100 rounded-tr-none' 
+    bubble.className = `relative max-w-[88%] xs:max-w-[82%] sm:max-w-[70%] rounded-2xl px-3 py-1.5 sm:px-3.5 sm:pt-2 sm:pb-1.5 text-xs shadow-xs break-words ${isMe
+        ? 'bg-wa-bubbleSentLight dark:bg-wa-bubbleSentDark text-gray-900 dark:text-gray-100 rounded-tr-none'
         : 'bg-wa-bubbleRecvLight dark:bg-wa-bubbleRecvDark text-gray-900 dark:text-gray-100 rounded-tl-none border border-black/5 dark:border-white/5'
-    }`;
+      }`;
 
     let senderHeader = '';
     if (!isMe) {
@@ -409,7 +407,7 @@ function renderChatMessages() {
 
 function escapeHTML(str) {
   if (!str) return '';
-  return str.replace(/[&<>'"]/g, 
+  return str.replace(/[&<>'"]/g,
     tag => ({
       '&': '&amp;',
       '<': '&lt;',
@@ -570,7 +568,7 @@ async function handleChatFile(file) {
 
       // Read text content directly from the zip in memory
       const text = await chatEntry.async('string');
-      
+
       // Determine title: prefer clean zip file name or extracted txt name
       let chatTitle = file.name.replace(/\.zip$/i, '').replace(/^WhatsApp Chat - /i, '');
       if (preferredTxtName && preferredTxtName.toLowerCase() !== '_chat.txt') {
@@ -757,3 +755,164 @@ if (savedTheme === 'dark' || (!savedTheme && isSystemDark)) {
   document.documentElement.classList.remove('dark');
   syncThemeIcons(false);
 }
+
+// ========================================================
+// HERO SECTION LIVE TYPING & BUBBLE POP SIMULATION
+// ========================================================
+(function initHeroSimulation() {
+  const canvas = document.getElementById('sim-chat-canvas');
+  const status = document.getElementById('sim-status');
+  if (!canvas || !status) return;
+
+  const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  function setStatus(text, isTyping = false) {
+    if (isTyping) {
+      status.textContent = text;
+      status.className = 'text-[10px] text-wa-teal font-semibold transition-colors';
+    } else {
+      status.textContent = text;
+      status.className = 'text-[10px] text-slate-500 dark:text-slate-400 transition-colors';
+    }
+  }
+
+  function renderTypingIndicator(senderName, isRight = false) {
+    const wrapper = document.createElement('div');
+    wrapper.id = 'sim-typing-bubble';
+    wrapper.className = `flex flex-col ${isRight ? 'items-end' : 'items-start'} animate-bubble-pop`;
+
+    wrapper.innerHTML = `
+      <div class="px-3.5 py-2 rounded-2xl ${isRight
+        ? 'bg-wa-bubbleSentLight dark:bg-wa-bubbleSentDark text-slate-700 dark:text-slate-200 rounded-tr-none'
+        : 'bg-white dark:bg-wa-bubbleRecvDark text-slate-600 dark:text-slate-300 rounded-tl-none shadow-xs'
+      } flex items-center space-x-1.5">
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+      </div>
+    `;
+    canvas.appendChild(wrapper);
+  }
+
+  function removeTypingIndicator() {
+    const el = document.getElementById('sim-typing-bubble');
+    if (el) el.remove();
+  }
+
+  function appendBubble({ sender, color, text, isMe, time, attachment, statusId }) {
+    const bubbleWrapper = document.createElement('div');
+    bubbleWrapper.className = `flex flex-col ${isMe ? 'items-end' : 'items-start'} animate-bubble-pop`;
+
+    let attachmentHTML = '';
+    if (attachment) {
+      attachmentHTML = `
+        <div class="flex items-center gap-2 p-1.5 mb-1 rounded-lg bg-black/5 dark:bg-white/5 border border-dashed border-gray-400/40 text-[11px] text-slate-700 dark:text-slate-300">
+          <svg class="w-3.5 h-3.5 text-wa-teal shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+          <span class="font-medium italic">${attachment}</span>
+        </div>
+      `;
+    }
+
+    bubbleWrapper.innerHTML = `
+      <div class="max-w-[85%] rounded-2xl px-3 py-1.5 sm:px-3.5 sm:py-2 shadow-xs ${isMe
+        ? 'bg-wa-bubbleSentLight dark:bg-wa-bubbleSentDark text-slate-900 dark:text-slate-100 rounded-tr-none'
+        : 'bg-white dark:bg-wa-bubbleRecvDark text-slate-900 dark:text-slate-100 rounded-tl-none border border-black/5 dark:border-white/5'
+      }">
+        ${!isMe ? `<span class="text-[10px] font-bold block mb-0.5" style="color: ${color}">${sender}</span>` : ''}
+        ${attachmentHTML}
+        <div class="leading-relaxed">${text}</div>
+        <div class="flex items-center justify-end gap-1 mt-0.5 text-[9px] text-slate-400">
+          <span>${time}</span>
+          ${isMe ? `
+            <span id="${statusId}" class="inline-flex transition-colors text-slate-400">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+            </span>
+          ` : ''}
+        </div>
+      </div>
+    `;
+
+    canvas.appendChild(bubbleWrapper);
+  }
+
+  async function runCycle() {
+    canvas.innerHTML = '';
+    setStatus('Alex, Sophia, Marcus');
+    await wait(600);
+
+    // 1. Sophia message lands
+    appendBubble({
+      sender: 'Sophia Chen',
+      color: '#059669',
+      text: 'Good morning! Dropping the sprint prototype wireframes here 🎨',
+      isMe: false,
+      time: '10:14 AM'
+    });
+    await wait(1200);
+
+    // 2. You start typing
+    setStatus('Alex is typing...', true);
+    renderTypingIndicator('Alex', true);
+    await wait(1600);
+    removeTypingIndicator();
+    setStatus('Alex, Sophia, Marcus');
+
+    // 3. You send message with single checkmark
+    const checkId = 'sim-receipt-' + Date.now();
+    appendBubble({
+      sender: 'You',
+      text: 'Looks super clean! Parsing it directly into ChatFlow now ⚡',
+      isMe: true,
+      time: '10:15 AM',
+      statusId: checkId
+    });
+
+    // 4. Checkmark turns to double checkmark, then turns read (blue)
+    await wait(400);
+    const receiptEl = document.getElementById(checkId);
+    if (receiptEl) {
+      receiptEl.innerHTML = `
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7m-7 4l4 4" />
+        </svg>
+      `;
+    }
+
+    await wait(600);
+    if (receiptEl) {
+      receiptEl.classList.remove('text-slate-400');
+      receiptEl.classList.add('text-blue-500');
+    }
+
+    await wait(1100);
+
+    // 5. Marcus typing
+    setStatus('Marcus Vance is typing...', true);
+    renderTypingIndicator('Marcus', false);
+    await wait(1400);
+    removeTypingIndicator();
+    setStatus('Alex, Sophia, Marcus');
+
+    // 6. Marcus responds with attachment
+    appendBubble({
+      sender: 'Marcus Vance',
+      color: '#2563eb',
+      text: 'Synced! Exported the full log below.',
+      attachment: 'WhatsApp Chat - Sprint_Log.txt (14 KB)',
+      isMe: false,
+      time: '10:16 AM'
+    });
+
+    // Wait and loop
+    await wait(4500);
+    canvas.style.opacity = '0';
+    canvas.style.transition = 'opacity 0.4s ease';
+    await wait(400);
+    canvas.style.opacity = '1';
+    runCycle();
+  }
+
+  runCycle();
+})();

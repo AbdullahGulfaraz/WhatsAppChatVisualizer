@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>ChatFlow — WhatsApp Chat Export Visualizer</title>
   <link rel="icon" type="image/svg+xml" href="logo.svg">
 
@@ -52,36 +54,56 @@
     };
   </script>
 </head>
-<body class="bg-slate-50 dark:bg-wa-bgDark text-slate-800 dark:text-slate-100 font-sans transition-colors duration-200 antialiased overflow-x-hidden">
+
+<body
+  class="bg-slate-50 dark:bg-wa-bgDark text-slate-800 dark:text-slate-100 font-sans transition-colors duration-200 antialiased overflow-x-hidden">
 
   <!-- ======================================================== -->
   <!-- 1. LANDING PAGE VIEW (#landing-view)                     -->
   <!-- ======================================================== -->
   <div id="landing-view" class="min-h-[100dvh] flex flex-col justify-between transition-opacity duration-300">
-    
+
     <!-- Top Landing Header with Scroll-Hide -->
-    <header id="landing-header" class="fixed top-0 inset-x-0 z-40 backdrop-blur-md bg-white/90 dark:bg-wa-panelDark/90 border-b border-slate-200/80 dark:border-wa-borderDark transition-transform duration-300">
+    <header id="landing-header"
+      class="fixed top-0 inset-x-0 z-40 backdrop-blur-md bg-white/90 dark:bg-wa-panelDark/90 border-b border-slate-200/80 dark:border-wa-borderDark transition-transform duration-300">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        <div class="flex items-center space-x-2.5 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <div class="flex items-center space-x-2.5 cursor-pointer"
+          onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
           <img src="logo.svg" alt="ChatFlow Logo" class="w-8 h-8 rounded-xl shadow-xs">
-          <span class="font-extrabold text-base sm:text-lg tracking-tight bg-gradient-to-r from-wa-teal to-emerald-500 bg-clip-text text-transparent">ChatFlow</span>
+          <span
+            class="font-extrabold text-base sm:text-lg tracking-tight bg-gradient-to-r from-wa-teal to-emerald-500 bg-clip-text text-transparent">ChatFlow</span>
         </div>
 
         <nav class="flex items-center space-x-2 sm:space-x-4">
-          <a href="#how-it-works" class="hidden sm:inline-block text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-wa-teal dark:hover:text-wa-teal transition">How It Works</a>
-          <a href="#features" class="hidden sm:inline-block text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-wa-teal dark:hover:text-wa-teal transition">Features</a>
-          <a href="#privacy" class="hidden sm:inline-block text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-wa-teal dark:hover:text-wa-teal transition">Privacy</a>
-          
+          <a href="#how-it-works"
+            class="hidden sm:inline-block text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-wa-teal dark:hover:text-wa-teal transition">How
+            It Works</a>
+          <a href="#features"
+            class="hidden sm:inline-block text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-wa-teal dark:hover:text-wa-teal transition">Features</a>
+          <a href="#privacy"
+            class="hidden sm:inline-block text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-wa-teal dark:hover:text-wa-teal transition">Privacy</a>
+
           <!-- Theme toggle -->
-          <button id="landing-theme-toggle" class="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white rounded-lg transition" title="Toggle Theme">
-            <svg id="landing-theme-moon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
-            <svg id="landing-theme-sun" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          <button id="landing-theme-toggle"
+            class="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white rounded-lg transition"
+            title="Toggle Theme">
+            <svg id="landing-theme-moon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+            <svg id="landing-theme-sun" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
           </button>
 
           <!-- Launch App CTA -->
-          <button id="btn-hero-launch" class="text-xs font-bold bg-wa-teal hover:bg-wa-tealDark text-white px-3.5 sm:px-4 py-2 rounded-xl shadow-sm transition active:scale-95 flex items-center gap-1.5">
+          <button id="btn-hero-launch"
+            class="text-xs font-bold bg-wa-teal hover:bg-wa-tealDark text-white px-3.5 sm:px-4 py-2 rounded-xl shadow-sm transition active:scale-95 flex items-center gap-1.5">
             <span>Launch App</span>
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
           </button>
         </nav>
       </div>
@@ -89,67 +111,85 @@
 
     <!-- Main Dynamic Full-Screen Sections -->
     <main class="flex-1 w-full">
-      
+
       <!-- 1. Hero Full-Screen Section -->
-      <section id="hero" class="min-h-[100dvh] flex flex-col justify-center relative overflow-hidden pt-20 pb-12 px-4 sm:px-6">
+      <section id="hero"
+        class="min-h-[100dvh] flex flex-col justify-center relative overflow-hidden pt-20 pb-12 px-4 sm:px-6">
         <div class="max-w-5xl mx-auto text-center relative z-10 w-full">
-          
+
           <!-- Trust Badge -->
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-[11px] sm:text-xs font-semibold text-emerald-800 dark:text-emerald-300 mb-6 shadow-2xs">
+          <div
+            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-[11px] sm:text-xs font-semibold text-emerald-800 dark:text-emerald-300 mb-6 shadow-2xs">
             <span class="w-2 h-2 rounded-full bg-wa-green animate-pulse"></span>
             100% Client-Side • Your chats never leave your device
           </div>
 
-          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.15] mb-5">
+          <h1
+            class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.15] mb-5">
             Turn messy WhatsApp logs into <br class="hidden sm:inline">
-            <span class="bg-gradient-to-r from-wa-teal via-emerald-500 to-teal-400 bg-clip-text text-transparent">beautiful interactive chats</span>.
+            <span
+              class="bg-gradient-to-r from-wa-teal via-emerald-500 to-teal-400 bg-clip-text text-transparent">beautiful
+              interactive chats</span>.
           </h1>
 
           <p class="max-w-2xl mx-auto text-sm sm:text-base text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
-            No more parsing plain <code class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-xs font-mono text-emerald-600">.txt</code> export files. ChatFlow instantly reconstructs your memories with authentic bubbles, search, dark mode, and noise filtering.
+            No more parsing plain <code
+              class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-xs font-mono text-emerald-600">.txt</code>
+            export files. ChatFlow instantly reconstructs your memories with authentic bubbles, search, dark mode, and
+            noise filtering.
           </p>
 
           <!-- Primary CTAs -->
           <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10">
-            <button id="btn-hero-upload" class="w-full sm:w-auto px-6 py-3.5 bg-wa-teal hover:bg-wa-tealDark text-white text-sm font-bold rounded-2xl shadow-lg shadow-wa-teal/25 transition active:scale-95 flex items-center justify-center gap-2">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+            <button id="btn-hero-upload"
+              class="w-full sm:w-auto px-6 py-3.5 bg-wa-teal hover:bg-wa-tealDark text-white text-sm font-bold rounded-2xl shadow-lg shadow-wa-teal/25 transition active:scale-95 flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+              </svg>
               Upload Chat (.txt) or (.zip)
             </button>
-            <button id="btn-hero-sample" class="w-full sm:w-auto px-6 py-3.5 bg-white dark:bg-wa-panelDark border border-slate-200 dark:border-wa-borderDark hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm font-semibold rounded-2xl shadow-sm transition active:scale-95 flex items-center justify-center gap-2">
-              <svg class="w-4 h-4 text-wa-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/></svg>
+            <button id="btn-hero-sample"
+              class="w-full sm:w-auto px-6 py-3.5 bg-white dark:bg-wa-panelDark border border-slate-200 dark:border-wa-borderDark hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm font-semibold rounded-2xl shadow-sm transition active:scale-95 flex items-center justify-center gap-2">
+              <svg class="w-4 h-4 text-wa-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+              </svg>
               Try Interactive Demo
             </button>
           </div>
 
-          <!-- Hero Interactive Preview Card -->
-          <div class="relative max-w-2xl mx-auto rounded-3xl p-2 bg-gradient-to-b from-slate-200/60 to-slate-100/30 dark:from-slate-800 dark:to-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-2xl">
-            <div class="rounded-2xl overflow-hidden bg-wa-bgLight dark:bg-wa-bgDark border border-black/5 dark:border-white/5 p-4 text-left font-sans">
+          <!-- Hero Interactive Live Typing Preview Card -->
+          <div
+            class="relative max-w-2xl mx-auto rounded-3xl p-2 bg-gradient-to-b from-slate-200/60 to-slate-100/30 dark:from-slate-800 dark:to-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-2xl">
+            <div
+              class="rounded-2xl overflow-hidden bg-wa-bgLight dark:bg-wa-bgDark border border-black/5 dark:border-white/5 p-4 text-left font-sans">
               <!-- Mini Header -->
               <div class="flex items-center justify-between pb-3 mb-3 border-b border-black/5 dark:border-white/5">
-                <div class="flex items-center gap-2">
-                  <div class="w-7 h-7 rounded-full bg-wa-teal text-white flex items-center justify-center text-xs font-bold">P</div>
+                <div class="flex items-center gap-2.5">
+                  <div class="relative">
+                    <div
+                      class="w-8 h-8 rounded-full bg-wa-teal text-white flex items-center justify-center text-xs font-bold shadow-xs">
+                      P</div>
+                    <span
+                      class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-wa-green border-2 border-white dark:border-wa-bgDark"></span>
+                  </div>
                   <div>
-                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100">Product Sprint 🚀</div>
-                    <div class="text-[10px] text-slate-500">Alex, Sophia, Marcus</div>
+                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100">Product Design Sprint 🚀</div>
+                    <div id="sim-status" class="text-[10px] text-slate-500 dark:text-slate-400 transition-colors">Alex,
+                      Sophia, Marcus</div>
                   </div>
                 </div>
-                <span class="text-[10px] px-2 py-0.5 rounded-full bg-wa-teal/10 text-wa-teal font-semibold">Live Preview</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-wa-teal/10 text-wa-teal font-semibold">Live
+                    Simulation</span>
+                </div>
               </div>
 
-              <!-- Mini Chat Stream -->
-              <div class="space-y-2 text-xs">
-                <div class="flex flex-col items-start">
-                  <div class="bg-white dark:bg-wa-bubbleRecvDark text-slate-800 dark:text-slate-100 rounded-2xl rounded-tl-none px-3 py-1.5 shadow-xs max-w-[80%]">
-                    <span class="text-[10px] font-bold text-emerald-600 block">Sophia</span>
-                    Hey everyone! Ready for today's design sprint?
-                  </div>
-                </div>
-                <div class="flex flex-col items-end">
-                  <div class="bg-wa-bubbleSentLight dark:bg-wa-bubbleSentDark text-slate-800 dark:text-slate-100 rounded-2xl rounded-tr-none px-3 py-1.5 shadow-xs max-w-[80%]">
-                    All set! Just dropped the new wireframes into the workspace.
-                    <span class="text-[9px] text-slate-400 block text-right mt-0.5">10:14 AM ✓✓</span>
-                  </div>
-                </div>
+              <!-- Animated Chat Stream Canvas -->
+              <div id="sim-chat-canvas" class="space-y-2.5 text-xs min-h-[175px] flex flex-col justify-end">
+                <!-- Dynamic messages and typing bubble injected here -->
               </div>
             </div>
           </div>
@@ -158,43 +198,57 @@
       </section>
 
       <!-- 2. How It Works Full-Screen Section -->
-      <section id="how-it-works" class="min-h-[100dvh] flex flex-col justify-center py-20 bg-white dark:bg-wa-panelDark/60 border-y border-slate-200/80 dark:border-wa-borderDark px-4 sm:px-6">
+      <section id="how-it-works"
+        class="min-h-[100dvh] flex flex-col justify-center py-20 bg-white dark:bg-wa-panelDark/60 border-y border-slate-200/80 dark:border-wa-borderDark px-4 sm:px-6">
         <div class="max-w-5xl mx-auto w-full my-auto">
           <div class="text-center max-w-xl mx-auto mb-14">
             <h2 class="text-xs font-bold uppercase tracking-wider text-wa-teal mb-2">Simple Workflow</h2>
-            <h3 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Visualize in 3 Quick Steps</h3>
+            <h3 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Visualize in 3 Quick Steps
+            </h3>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             <!-- Step 1 -->
-            <div class="p-8 rounded-3xl bg-slate-50 dark:bg-wa-bgDark border border-slate-200/70 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+            <div
+              class="p-8 rounded-3xl bg-slate-50 dark:bg-wa-bgDark border border-slate-200/70 dark:border-slate-800 shadow-sm flex flex-col justify-between">
               <div>
-                <div class="w-12 h-12 rounded-2xl bg-wa-teal/10 text-wa-teal flex items-center justify-center font-extrabold text-lg mb-6">1</div>
+                <div
+                  class="w-12 h-12 rounded-2xl bg-wa-teal/10 text-wa-teal flex items-center justify-center font-extrabold text-lg mb-6">
+                  1</div>
                 <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Export Your Chat</h4>
                 <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  In WhatsApp, open any chat > tap <b>More</b> > <b>Export Chat</b> > choose <b>Without Media</b> to produce a lightweight <code class="text-xs font-mono text-wa-teal">.txt</code> file.
+                  In WhatsApp, open any chat > tap <b>More</b> > <b>Export Chat</b> > choose <b>Without Media</b> to
+                  produce a lightweight <code class="text-xs font-mono text-wa-teal">.txt</code> file.
                 </p>
               </div>
             </div>
 
             <!-- Step 2 -->
-            <div class="p-8 rounded-3xl bg-slate-50 dark:bg-wa-bgDark border border-slate-200/70 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+            <div
+              class="p-8 rounded-3xl bg-slate-50 dark:bg-wa-bgDark border border-slate-200/70 dark:border-slate-800 shadow-sm flex flex-col justify-between">
               <div>
-                <div class="w-12 h-12 rounded-2xl bg-wa-teal/10 text-wa-teal flex items-center justify-center font-extrabold text-lg mb-6">2</div>
+                <div
+                  class="w-12 h-12 rounded-2xl bg-wa-teal/10 text-wa-teal flex items-center justify-center font-extrabold text-lg mb-6">
+                  2</div>
                 <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Drop & Pick Identity</h4>
                 <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Drop your file directly into the visualizer. Choose your name from the participant selector so your messages align to the right side with receipts.
+                  Drop your file directly into the visualizer. Choose your name from the participant selector so your
+                  messages align to the right side with receipts.
                 </p>
               </div>
             </div>
 
             <!-- Step 3 -->
-            <div class="p-8 rounded-3xl bg-slate-50 dark:bg-wa-bgDark border border-slate-200/70 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+            <div
+              class="p-8 rounded-3xl bg-slate-50 dark:bg-wa-bgDark border border-slate-200/70 dark:border-slate-800 shadow-sm flex flex-col justify-between">
               <div>
-                <div class="w-12 h-12 rounded-2xl bg-wa-teal/10 text-wa-teal flex items-center justify-center font-extrabold text-lg mb-6">3</div>
+                <div
+                  class="w-12 h-12 rounded-2xl bg-wa-teal/10 text-wa-teal flex items-center justify-center font-extrabold text-lg mb-6">
+                  3</div>
                 <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Explore, Search & Export</h4>
                 <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Search across thousands of messages in real time, review group member metrics, print clean records, or export parsed data to structured JSON.
+                  Search across thousands of messages in real time, review group member metrics, print clean records, or
+                  export parsed data to structured JSON.
                 </p>
               </div>
             </div>
@@ -211,64 +265,100 @@
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            <div class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
-              <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+
+            <div
+              class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
+              <div
+                class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
               </div>
               <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">Universal Multi-Format Parser</h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Handles iOS bracket format, Android 12h/24h timestamps, multiline messages, and system security alerts without breaking.
+                Handles iOS bracket format, Android 12h/24h timestamps, multiline messages, and system security alerts
+                without breaking.
               </p>
             </div>
 
-            <div class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
-              <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            <div
+              class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
+              <div
+                class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
               </div>
               <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">Unicode & Noise Cleaning</h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Strips out ghost call entries, invisible zero-width spaces (<code class="text-[10px] font-mono">\u200B</code>), and empty dates automatically.
+                Strips out ghost call entries, invisible zero-width spaces (<code
+                  class="text-[10px] font-mono">\u200B</code>), and empty dates automatically.
               </p>
             </div>
 
-            <div id="privacy" class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
-              <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <div id="privacy"
+              class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
+              <div
+                class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
               </div>
               <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">100% In-Browser Privacy</h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Zero telemetry, zero uploads. Your conversations are processed strictly in memory on your personal machine.
+                Zero telemetry, zero uploads. Your conversations are processed strictly in memory on your personal
+                machine.
               </p>
             </div>
 
-            <div class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
-              <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <div
+              class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
+              <div
+                class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
               </div>
               <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">Real-Time Search & Stats</h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Locate specific phrases across years of conversations with instant search highlights and message counts per person.
+                Locate specific phrases across years of conversations with instant search highlights and message counts
+                per person.
               </p>
             </div>
 
-            <div class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
-              <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            <div
+              class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
+              <div
+                class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
               </div>
               <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">JSON & PDF Export</h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Convert legacy text dumps into structured JSON for analysis or print high-fidelity documents for official records.
+                Convert legacy text dumps into structured JSON for analysis or print high-fidelity documents for
+                official records.
               </p>
             </div>
 
-            <div class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
-              <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+            <div
+              class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
+              <div
+                class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
               </div>
               <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">Dark & Light Wallpaper</h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Authentic WhatsApp patterns and responsive drawer controls engineered for desktop and touch screen displays.
+                Authentic WhatsApp patterns and responsive drawer controls engineered for desktop and touch screen
+                displays.
               </p>
             </div>
 
@@ -279,10 +369,11 @@
     </main>
 
     <!-- Comprehensive Landing Footer -->
-    <footer class="border-t border-slate-200/80 dark:border-wa-borderDark bg-white dark:bg-wa-panelDark py-12 px-4 sm:px-6">
+    <footer
+      class="border-t border-slate-200/80 dark:border-wa-borderDark bg-white dark:bg-wa-panelDark py-12 px-4 sm:px-6">
       <div class="max-w-6xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-slate-100 dark:border-wa-borderDark">
-          
+
           <!-- Column 1: Brand Info -->
           <div class="md:col-span-4 space-y-3">
             <div class="flex items-center space-x-2.5">
@@ -290,7 +381,8 @@
               <span class="font-extrabold text-base tracking-tight text-slate-900 dark:text-white">ChatFlow</span>
             </div>
             <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Open-source, privacy-first WhatsApp export log visualizer. Reconstruct conversations securely right within your browser.
+              Open-source, privacy-first WhatsApp export log visualizer. Reconstruct conversations securely right within
+              your browser.
             </p>
           </div>
 
@@ -299,34 +391,47 @@
             <h5 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200">Navigation</h5>
             <ul class="space-y-1.5 text-xs text-slate-600 dark:text-slate-400">
               <li><a href="#hero" class="hover:text-wa-teal dark:hover:text-wa-teal transition">Back to Top</a></li>
-              <li><a href="#how-it-works" class="hover:text-wa-teal dark:hover:text-wa-teal transition">How It Works</a></li>
-              <li><a href="#features" class="hover:text-wa-teal dark:hover:text-wa-teal transition">Features Bento</a></li>
-              <li><a href="#privacy" class="hover:text-wa-teal dark:hover:text-wa-teal transition">Privacy Architecture</a></li>
-              <li><button id="footer-btn-demo" class="hover:text-wa-teal dark:hover:text-wa-teal transition">Launch Interactive Demo</button></li>
+              <li><a href="#how-it-works" class="hover:text-wa-teal dark:hover:text-wa-teal transition">How It Works</a>
+              </li>
+              <li><a href="#features" class="hover:text-wa-teal dark:hover:text-wa-teal transition">Features Bento</a>
+              </li>
+              <li><a href="#privacy" class="hover:text-wa-teal dark:hover:text-wa-teal transition">Privacy
+                  Architecture</a></li>
+              <li><button id="footer-btn-demo" class="hover:text-wa-teal dark:hover:text-wa-teal transition">Launch
+                  Interactive Demo</button></li>
             </ul>
           </div>
 
           <!-- Column 3: Direct Footer Upload Launchpad -->
           <div class="md:col-span-5 space-y-3">
-            <h5 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200">Quick File Launcher</h5>
-            <div id="footer-dropzone" class="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-wa-teal dark:hover:border-wa-teal rounded-2xl p-4 text-center cursor-pointer transition bg-slate-50/50 dark:bg-wa-bgDark/50 group">
-              <input type="file" id="footer-file-input" accept=".txt,.zip,text/plain,application/zip,application/x-zip-compressed" class="hidden">
-              <svg class="w-6 h-6 mx-auto text-slate-400 group-hover:text-wa-teal transition mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+            <h5 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200">Quick File
+              Launcher</h5>
+            <div id="footer-dropzone"
+              class="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-wa-teal dark:hover:border-wa-teal rounded-2xl p-4 text-center cursor-pointer transition bg-slate-50/50 dark:bg-wa-bgDark/50 group">
+              <input type="file" id="footer-file-input"
+                accept=".txt,.zip,text/plain,application/zip,application/x-zip-compressed" class="hidden">
+              <svg class="w-6 h-6 mx-auto text-slate-400 group-hover:text-wa-teal transition mb-1" fill="none"
+                stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
               </svg>
-              <p class="text-xs font-semibold text-slate-700 dark:text-slate-300">Drop your .txt or .zip chat file here</p>
-              <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">Loads directly into the interactive visualizer</p>
+              <p class="text-xs font-semibold text-slate-700 dark:text-slate-300">Drop your .txt or .zip chat file here
+              </p>
+              <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">Loads directly into the interactive
+                visualizer</p>
             </div>
           </div>
 
         </div>
 
-        <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
+        <div
+          class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
           <div>© 2026 ChatFlow. Free & open source.</div>
           <div class="flex items-center space-x-4">
             <span>Client-side session processing</span>
             <span>•</span>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="hover:text-wa-teal transition">GitHub</a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer"
+              class="hover:text-wa-teal transition">GitHub</a>
           </div>
         </div>
       </div>
@@ -338,22 +443,29 @@
   <!-- ========================================================= -->
   <!-- 2. FUNCTIONAL APP WORKSPACE VIEW (#app-view)               -->
   <!-- ========================================================= -->
-  <div id="app-view" class="h-screen h-[100dvh] flex flex-col transition-opacity duration-300 hidden select-none overflow-hidden">
-    
+  <div id="app-view"
+    class="h-screen h-[100dvh] flex flex-col transition-opacity duration-300 hidden select-none overflow-hidden">
+
     <!-- Mobile Drawer Backdrop -->
-    <div id="drawer-backdrop" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-40 hidden md:hidden transition-opacity duration-300"></div>
+    <div id="drawer-backdrop"
+      class="fixed inset-0 bg-black/60 backdrop-blur-xs z-40 hidden md:hidden transition-opacity duration-300"></div>
 
     <!-- App Header -->
-    <header class="h-14 bg-wa-teal dark:bg-wa-panelDark border-b border-wa-tealDark dark:border-wa-borderDark flex items-center justify-between px-3 sm:px-6 shadow-sm z-30 shrink-0">
+    <header
+      class="h-14 bg-wa-teal dark:bg-wa-panelDark border-b border-wa-tealDark dark:border-wa-borderDark flex items-center justify-between px-3 sm:px-6 shadow-sm z-30 shrink-0">
       <div class="flex items-center space-x-2 sm:space-x-3">
         <!-- Back to Landing button -->
-        <button id="btn-back-home" title="Back to Landing Page" class="p-1.5 text-white/90 hover:text-white hover:bg-emerald-700 dark:hover:bg-gray-800 rounded-lg transition active:scale-95 flex items-center gap-1 text-xs font-semibold mr-1">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        <button id="btn-back-home" title="Back to Landing Page"
+          class="p-1.5 text-white/90 hover:text-white hover:bg-emerald-700 dark:hover:bg-gray-800 rounded-lg transition active:scale-95 flex items-center gap-1 text-xs font-semibold mr-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
           <span class="hidden sm:inline">Home</span>
         </button>
 
         <!-- Hamburger Menu for Mobile -->
-        <button id="btn-open-sidebar" aria-label="Open Navigation Menu" class="md:hidden p-2 text-white/90 hover:text-white rounded-lg hover:bg-emerald-700 dark:hover:bg-gray-800 active:scale-95 transition">
+        <button id="btn-open-sidebar" aria-label="Open Navigation Menu"
+          class="md:hidden p-2 text-white/90 hover:text-white rounded-lg hover:bg-emerald-700 dark:hover:bg-gray-800 active:scale-95 transition">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
@@ -363,39 +475,49 @@
           <img src="logo.svg" alt="ChatFlow Logo" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg shadow-sm">
           <div>
             <h1 class="font-bold text-white text-sm sm:text-base tracking-tight leading-tight">ChatFlow</h1>
-            <p class="hidden xs:block text-[10px] sm:text-[11px] text-emerald-100 dark:text-gray-400">WhatsApp Export Visualizer</p>
+            <p class="hidden xs:block text-[10px] sm:text-[11px] text-emerald-100 dark:text-gray-400">WhatsApp Export
+              Visualizer</p>
           </div>
         </div>
       </div>
 
       <!-- App Header Actions -->
       <div class="flex items-center space-x-1.5 sm:space-x-2">
-        <button id="btn-load-sample" class="text-xs bg-emerald-700 hover:bg-emerald-800 dark:bg-gray-800 dark:hover:bg-gray-700 text-white font-medium py-1.5 px-2.5 sm:px-3 rounded-lg border border-emerald-500/30 transition flex items-center gap-1.5 shadow-sm active:scale-95">
+        <button id="btn-load-sample"
+          class="text-xs bg-emerald-700 hover:bg-emerald-800 dark:bg-gray-800 dark:hover:bg-gray-700 text-white font-medium py-1.5 px-2.5 sm:px-3 rounded-lg border border-emerald-500/30 transition flex items-center gap-1.5 shadow-sm active:scale-95">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
           </svg>
           <span class="hidden sm:inline">Sample</span>
         </button>
 
-        <button id="btn-paste-modal" class="text-xs bg-emerald-700 hover:bg-emerald-800 dark:bg-gray-800 dark:hover:bg-gray-700 text-white font-medium py-1.5 px-2.5 sm:px-3 rounded-lg border border-emerald-500/30 transition flex items-center gap-1.5 shadow-sm active:scale-95">
+        <button id="btn-paste-modal"
+          class="text-xs bg-emerald-700 hover:bg-emerald-800 dark:bg-gray-800 dark:hover:bg-gray-700 text-white font-medium py-1.5 px-2.5 sm:px-3 rounded-lg border border-emerald-500/30 transition flex items-center gap-1.5 shadow-sm active:scale-95">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
           </svg>
           <span class="hidden sm:inline">Paste</span>
         </button>
 
-        <button id="btn-export-json" title="Export as JSON" class="p-2 text-white/90 hover:text-white hover:bg-emerald-700 dark:hover:bg-gray-800 rounded-lg transition active:scale-95">
+        <button id="btn-export-json" title="Export as JSON"
+          class="p-2 text-white/90 hover:text-white hover:bg-emerald-700 dark:hover:bg-gray-800 rounded-lg transition active:scale-95">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
           </svg>
         </button>
 
-        <button id="btn-theme-toggle" title="Toggle Theme" class="p-2 text-white/90 hover:text-white hover:bg-emerald-700 dark:hover:bg-gray-800 rounded-lg transition active:scale-95">
+        <button id="btn-theme-toggle" title="Toggle Theme"
+          class="p-2 text-white/90 hover:text-white hover:bg-emerald-700 dark:hover:bg-gray-800 rounded-lg transition active:scale-95">
           <svg id="theme-moon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
           </svg>
           <svg id="theme-sun" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
           </svg>
         </button>
       </div>
@@ -403,25 +525,35 @@
 
     <!-- App Body Area -->
     <main class="flex-1 flex overflow-hidden relative">
-      
+
       <!-- Responsive Sidebar Drawer -->
-      <aside id="sidebar" class="fixed md:static inset-y-0 left-0 w-80 max-w-[85vw] bg-white dark:bg-wa-panelDark border-r border-gray-200 dark:border-wa-borderDark flex flex-col z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out shrink-0 shadow-2xl md:shadow-none">
-        
-        <div class="p-3.5 flex items-center justify-between border-b border-gray-200 dark:border-wa-borderDark md:hidden bg-gray-50/70 dark:bg-gray-900/40">
+      <aside id="sidebar"
+        class="fixed md:static inset-y-0 left-0 w-80 max-w-[85vw] bg-white dark:bg-wa-panelDark border-r border-gray-200 dark:border-wa-borderDark flex flex-col z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out shrink-0 shadow-2xl md:shadow-none">
+
+        <div
+          class="p-3.5 flex items-center justify-between border-b border-gray-200 dark:border-wa-borderDark md:hidden bg-gray-50/70 dark:bg-gray-900/40">
           <span class="text-xs font-bold uppercase tracking-wider text-gray-500">Settings & Chats</span>
-          <button id="btn-close-sidebar" class="p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 rounded-lg active:scale-95">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          <button id="btn-close-sidebar"
+            class="p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 rounded-lg active:scale-95">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
           </button>
         </div>
 
         <!-- File Upload Dropzone inside Visualizer -->
         <div class="p-3 border-b border-gray-200 dark:border-wa-borderDark">
-          <div id="dropzone" class="border-2 border-dashed border-gray-300 dark:border-gray-700 hover:border-wa-teal dark:hover:border-wa-teal rounded-xl p-3 sm:p-4 text-center cursor-pointer transition bg-gray-50 dark:bg-gray-800/40 group">
-            <input type="file" id="file-input" accept=".txt,.zip,text/plain,application/zip,application/x-zip-compressed" class="hidden">
-            <svg class="w-6 h-6 mx-auto text-gray-400 group-hover:text-wa-teal transition mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+          <div id="dropzone"
+            class="border-2 border-dashed border-gray-300 dark:border-gray-700 hover:border-wa-teal dark:hover:border-wa-teal rounded-xl p-3 sm:p-4 text-center cursor-pointer transition bg-gray-50 dark:bg-gray-800/40 group">
+            <input type="file" id="file-input"
+              accept=".txt,.zip,text/plain,application/zip,application/x-zip-compressed" class="hidden">
+            <svg class="w-6 h-6 mx-auto text-gray-400 group-hover:text-wa-teal transition mb-1" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
             </svg>
-            <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">Drop exported .txt or .zip chat file here</p>
+            <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">Drop exported .txt or .zip chat file here
+            </p>
             <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">or tap to browse files</p>
           </div>
         </div>
@@ -432,7 +564,8 @@
             Select Your Perspective:
           </label>
           <div class="relative">
-            <select id="user-select" class="w-full text-xs font-medium bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg py-2 pl-3 pr-8 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-wa-teal focus:outline-none transition appearance-none">
+            <select id="user-select"
+              class="w-full text-xs font-medium bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg py-2 pl-3 pr-8 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-wa-teal focus:outline-none transition appearance-none">
               <option value="" disabled selected>Load chat to select</option>
             </select>
             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
@@ -441,17 +574,20 @@
               </svg>
             </div>
           </div>
-          <p class="text-[10px] text-gray-400 dark:text-gray-500 mt-1">This participant will appear on the right side as sender.</p>
+          <p class="text-[10px] text-gray-400 dark:text-gray-500 mt-1">This participant will appear on the right side as
+            sender.</p>
         </div>
 
         <!-- Stats Overview -->
         <div class="p-3 border-b border-gray-200 dark:border-wa-borderDark bg-gray-50/50 dark:bg-gray-900/30">
           <div class="grid grid-cols-2 gap-2 text-center">
-            <div class="bg-white dark:bg-gray-800 p-2 rounded-lg border border-gray-100 dark:border-gray-700/60 shadow-xs">
+            <div
+              class="bg-white dark:bg-gray-800 p-2 rounded-lg border border-gray-100 dark:border-gray-700/60 shadow-xs">
               <div id="stat-total" class="text-sm font-bold text-wa-teal dark:text-emerald-400">0</div>
               <div class="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-medium">Messages</div>
             </div>
-            <div class="bg-white dark:bg-gray-800 p-2 rounded-lg border border-gray-100 dark:border-gray-700/60 shadow-xs">
+            <div
+              class="bg-white dark:bg-gray-800 p-2 rounded-lg border border-gray-100 dark:border-gray-700/60 shadow-xs">
               <div id="stat-participants" class="text-sm font-bold text-indigo-500 dark:text-indigo-400">0</div>
               <div class="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-medium">Members</div>
             </div>
@@ -463,9 +599,11 @@
 
         <!-- Participants List -->
         <div class="flex-1 overflow-y-auto p-3">
-          <div class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2 flex items-center justify-between">
+          <div
+            class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2 flex items-center justify-between">
             <span>Active Participants</span>
-            <span id="participants-count-tag" class="text-[10px] bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 rounded-full font-bold">0</span>
+            <span id="participants-count-tag"
+              class="text-[10px] bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 rounded-full font-bold">0</span>
           </div>
           <div id="participants-list" class="space-y-1.5">
             <div class="text-xs text-gray-400 text-center py-4 italic">No chat loaded</div>
@@ -473,13 +611,22 @@
         </div>
 
         <!-- Quick Scroll Controls -->
-        <div class="p-2.5 border-t border-gray-200 dark:border-wa-borderDark flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-          <button id="btn-jump-bottom" class="flex items-center gap-1 hover:text-wa-teal dark:hover:text-emerald-400 transition font-medium">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        <div
+          class="p-2.5 border-t border-gray-200 dark:border-wa-borderDark flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+          <button id="btn-jump-bottom"
+            class="flex items-center gap-1 hover:text-wa-teal dark:hover:text-emerald-400 transition font-medium">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3">
+              </path>
+            </svg>
             Latest
           </button>
-          <button id="btn-jump-top" class="flex items-center gap-1 hover:text-wa-teal dark:hover:text-emerald-400 transition font-medium">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+          <button id="btn-jump-top"
+            class="flex items-center gap-1 hover:text-wa-teal dark:hover:text-emerald-400 transition font-medium">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18">
+              </path>
+            </svg>
             Oldest
           </button>
         </div>
@@ -487,42 +634,56 @@
 
       <!-- Center Chat Canvas -->
       <section class="flex-1 flex flex-col h-full overflow-hidden relative">
-        <div class="h-14 px-3 sm:px-4 bg-wa-panelLight dark:bg-wa-panelDark border-b border-wa-borderLight dark:border-wa-borderDark flex items-center justify-between shrink-0 z-10 gap-2 shadow-xs">
+        <div
+          class="h-14 px-3 sm:px-4 bg-wa-panelLight dark:bg-wa-panelDark border-b border-wa-borderLight dark:border-wa-borderDark flex items-center justify-between shrink-0 z-10 gap-2 shadow-xs">
           <div class="flex items-center space-x-2 sm:space-x-3 overflow-hidden min-w-0">
-            <div id="chat-header-avatar" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-emerald-700 text-white font-bold flex items-center justify-center shrink-0 text-xs sm:text-sm shadow-xs">
+            <div id="chat-header-avatar"
+              class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-emerald-700 text-white font-bold flex items-center justify-center shrink-0 text-xs sm:text-sm shadow-xs">
               W
             </div>
             <div class="truncate">
-              <h2 id="chat-title" class="font-semibold text-xs sm:text-sm text-gray-900 dark:text-gray-100 truncate">Select or Upload a Chat</h2>
-              <p id="chat-subtitle" class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 truncate">WhatsApp Conversation</p>
+              <h2 id="chat-title" class="font-semibold text-xs sm:text-sm text-gray-900 dark:text-gray-100 truncate">
+                Select or Upload a Chat</h2>
+              <p id="chat-subtitle" class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 truncate">WhatsApp
+                Conversation</p>
             </div>
           </div>
 
           <!-- In-Chat Search Bar -->
           <div class="flex items-center space-x-1.5 shrink-0">
             <div class="relative w-28 xs:w-36 sm:w-56 md:w-64">
-              <input type="text" id="search-input" placeholder="Search..." class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-xs rounded-full pl-7 pr-6 py-1.5 focus:outline-none focus:ring-1 focus:ring-wa-teal text-gray-800 dark:text-gray-100 shadow-2xs">
-              <svg class="w-3 h-3 text-gray-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              <input type="text" id="search-input" placeholder="Search..."
+                class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-xs rounded-full pl-7 pr-6 py-1.5 focus:outline-none focus:ring-1 focus:ring-wa-teal text-gray-800 dark:text-gray-100 shadow-2xs">
+              <svg class="w-3 h-3 text-gray-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-              <button id="clear-search" class="absolute right-2 top-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hidden">
+              <button id="clear-search"
+                class="absolute right-2 top-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hidden">
                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
-            <div id="search-matches" class="text-[10px] sm:text-[11px] font-semibold text-gray-500 dark:text-gray-400 hidden whitespace-nowrap">
+            <div id="search-matches"
+              class="text-[10px] sm:text-[11px] font-semibold text-gray-500 dark:text-gray-400 hidden whitespace-nowrap">
               0
             </div>
           </div>
         </div>
 
         <!-- Scrollable Message Canvas -->
-        <div id="chat-container" class="flex-1 overflow-y-auto p-3 sm:p-5 md:p-6 chat-bg-pattern-light dark:chat-bg-pattern-dark space-y-2 select-text">
-          <div id="empty-state" class="h-full flex flex-col items-center justify-center text-center p-4 sm:p-6 max-w-md mx-auto">
-            <div class="w-14 h-14 sm:w-16 sm:h-16 bg-wa-teal/10 text-wa-teal rounded-full flex items-center justify-center mb-3">
+        <div id="chat-container"
+          class="flex-1 overflow-y-auto p-3 sm:p-5 md:p-6 chat-bg-pattern-light dark:chat-bg-pattern-dark space-y-2 select-text">
+          <div id="empty-state"
+            class="h-full flex flex-col items-center justify-center text-center p-4 sm:p-6 max-w-md mx-auto">
+            <div
+              class="w-14 h-14 sm:w-16 sm:h-16 bg-wa-teal/10 text-wa-teal rounded-full flex items-center justify-center mb-3">
               <svg class="w-7 h-7 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+                </path>
               </svg>
             </div>
             <h3 class="text-sm sm:text-base font-bold text-gray-800 dark:text-gray-200 mb-1">No Chat Loaded Yet</h3>
@@ -530,10 +691,12 @@
               Upload or paste any standard WhatsApp exported .txt chat file or .zip archive to visualize it instantly.
             </p>
             <div class="flex flex-wrap gap-2 justify-center">
-              <button id="btn-empty-load-sample" class="bg-wa-teal hover:bg-wa-tealDark text-white text-xs font-semibold py-2 px-3.5 rounded-xl shadow transition active:scale-95">
+              <button id="btn-empty-load-sample"
+                class="bg-wa-teal hover:bg-wa-tealDark text-white text-xs font-semibold py-2 px-3.5 rounded-xl shadow transition active:scale-95">
                 Load Sample Conversation
               </button>
-              <button id="btn-empty-browse" class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-xs font-semibold py-2 px-3.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 shadow-2xs transition active:scale-95">
+              <button id="btn-empty-browse"
+                class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-xs font-semibold py-2 px-3.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 shadow-2xs transition active:scale-95">
                 Browse Files
               </button>
             </div>
@@ -543,10 +706,15 @@
         </div>
 
         <!-- Chat Bottom Meta Footer -->
-        <div id="chat-footer-bar" class="h-9 sm:h-10 px-3 sm:px-4 bg-wa-panelLight/90 dark:bg-wa-panelDark/90 backdrop-blur-xs border-t border-wa-borderLight dark:border-wa-borderDark flex items-center justify-between text-[10px] sm:text-[11px] text-gray-500 dark:text-gray-400 shrink-0">
+        <div id="chat-footer-bar"
+          class="h-9 sm:h-10 px-3 sm:px-4 bg-wa-panelLight/90 dark:bg-wa-panelDark/90 backdrop-blur-xs border-t border-wa-borderLight dark:border-wa-borderDark flex items-center justify-between text-[10px] sm:text-[11px] text-gray-500 dark:text-gray-400 shrink-0">
           <span id="footer-chat-info" class="truncate mr-2">Ready</span>
-          <button id="btn-print" class="hover:text-wa-teal dark:hover:text-emerald-400 font-medium flex items-center gap-1 transition shrink-0">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
+          <button id="btn-print"
+            class="hover:text-wa-teal dark:hover:text-emerald-400 font-medium flex items-center gap-1 transition shrink-0">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+            </svg>
             <span class="hidden xs:inline">Print / PDF</span>
           </button>
         </div>
@@ -555,27 +723,38 @@
   </div>
 
   <!-- Raw Paste Modal -->
-  <div id="paste-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 z-50 hidden">
-    <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-xl w-full border border-gray-200 dark:border-gray-800 overflow-hidden flex flex-col max-h-[90vh]">
-      <div class="px-4 py-3 sm:px-5 sm:py-4 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+  <div id="paste-modal"
+    class="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 z-50 hidden">
+    <div
+      class="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-xl w-full border border-gray-200 dark:border-gray-800 overflow-hidden flex flex-col max-h-[90vh]">
+      <div
+        class="px-4 py-3 sm:px-5 sm:py-4 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
         <div>
           <h3 class="font-bold text-sm text-gray-900 dark:text-gray-100">Paste Exported Chat Text</h3>
           <p class="text-[11px] text-gray-500 dark:text-gray-400">Paste logs from WhatsApp iOS or Android</p>
         </div>
         <button id="btn-close-paste" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 p-1">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
         </button>
       </div>
       <div class="p-4 sm:p-5 flex-1 flex flex-col">
-        <textarea id="paste-textarea" rows="10" placeholder="Paste export text here..." class="w-full flex-1 p-3 text-xs font-mono bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-wa-teal focus:outline-none text-gray-800 dark:text-gray-100 resize-none"></textarea>
+        <textarea id="paste-textarea" rows="10" placeholder="Paste export text here..."
+          class="w-full flex-1 p-3 text-xs font-mono bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-wa-teal focus:outline-none text-gray-800 dark:text-gray-100 resize-none"></textarea>
       </div>
-      <div class="px-4 py-3 sm:px-5 sm:py-3.5 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-2">
-        <button id="btn-cancel-paste" class="px-3.5 py-1.5 sm:px-4 sm:py-2 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-xl transition">Cancel</button>
-        <button id="btn-apply-paste" class="px-3.5 py-1.5 sm:px-4 sm:py-2 text-xs font-bold text-white bg-wa-teal hover:bg-wa-tealDark rounded-xl shadow transition">Parse & Visualize</button>
+      <div
+        class="px-4 py-3 sm:px-5 sm:py-3.5 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-2">
+        <button id="btn-cancel-paste"
+          class="px-3.5 py-1.5 sm:px-4 sm:py-2 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-xl transition">Cancel</button>
+        <button id="btn-apply-paste"
+          class="px-3.5 py-1.5 sm:px-4 sm:py-2 text-xs font-bold text-white bg-wa-teal hover:bg-wa-tealDark rounded-xl shadow transition">Parse
+          & Visualize</button>
       </div>
     </div>
   </div>
 
   <script src="script.js"></script>
 </body>
+
 </html>
