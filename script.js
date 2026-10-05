@@ -31,7 +31,38 @@ Here are the three criteria we need to meet:
 15/03/2024, 14:03 - Marcus Vance: Jumping in right now.
 15/03/2024, 14:04 - Alex Johnson: On my way!`;
 
-// Helper: check if a message has readable characters (strips invisible unicode spaces)
+// --- VIEW SWITCHER ROUTING (Landing vs App) ---
+const landingView = document.getElementById('landing-view');
+const appView = document.getElementById('app-view');
+
+function showAppView() {
+  landingView.classList.add('hidden');
+  appView.classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+function showLandingView() {
+  appView.classList.add('hidden');
+  landingView.classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+document.getElementById('btn-hero-launch').addEventListener('click', showAppView);
+document.getElementById('btn-back-home').addEventListener('click', showLandingView);
+
+// Hero CTA: Upload Chat triggers file selector directly
+document.getElementById('btn-hero-upload').addEventListener('click', () => {
+  showAppView();
+  document.getElementById('file-input').click();
+});
+
+// Hero CTA: Try Interactive Demo loads sample and opens app view
+document.getElementById('btn-hero-sample').addEventListener('click', () => {
+  processChatData(SAMPLE_CHAT, 'Product Design Sprint 🚀');
+  showAppView();
+});
+
+// Helper: check if message contains visible text (ignoring zero-width unicode spaces)
 function hasVisibleText(text) {
   if (!text) return false;
   return text.replace(/[\s\u200B-\u200D\uFEFF\u00A0\u202F\u200E\u200F]/g, '').length > 0;
@@ -133,7 +164,6 @@ function processChatData(rawText, title = 'WhatsApp Conversation') {
   updateSidebarAndStats();
   renderChatMessages();
 
-  // On mobile screens, tuck the sidebar drawer away automatically once loaded
   if (window.innerWidth < 768) {
     closeMobileSidebar();
   }
@@ -376,7 +406,7 @@ function alertFallback(msg) {
   setTimeout(() => banner.remove(), 4000);
 }
 
-// Mobile Responsive Sidebar Drawer Logic
+// Drawer Mobile Navigation
 const sidebar = document.getElementById('sidebar');
 const drawerBackdrop = document.getElementById('drawer-backdrop');
 const btnOpenSidebar = document.getElementById('btn-open-sidebar');
@@ -396,7 +426,7 @@ if (btnOpenSidebar) btnOpenSidebar.addEventListener('click', openMobileSidebar);
 if (btnCloseSidebar) btnCloseSidebar.addEventListener('click', closeMobileSidebar);
 if (drawerBackdrop) drawerBackdrop.addEventListener('click', closeMobileSidebar);
 
-// File Drop Zone Handling
+// File Dropzone Handling
 const dropzone = document.getElementById('dropzone');
 const fileInput = document.getElementById('file-input');
 
@@ -422,6 +452,7 @@ window.addEventListener('drop', (e) => {
   const dt = e.dataTransfer;
   const files = dt.files;
   if (files && files.length > 0) {
+    showAppView();
     handleChatFile(files[0]);
   }
 });
@@ -453,7 +484,7 @@ function handleChatFile(file) {
   reader.readAsText(file);
 }
 
-// User Perspective Switcher
+// User perspective dropdown
 document.getElementById('user-select').addEventListener('change', (e) => {
   state.currentUser = e.target.value;
   renderChatMessages();
@@ -472,7 +503,7 @@ document.getElementById('btn-empty-load-sample').addEventListener('click', () =>
   processChatData(SAMPLE_CHAT, 'Product Design Sprint 🚀');
 });
 
-// Search functionality
+// Search
 const searchInput = document.getElementById('search-input');
 const clearSearch = document.getElementById('clear-search');
 
@@ -493,7 +524,7 @@ clearSearch.addEventListener('click', () => {
   renderChatMessages();
 });
 
-// Navigation buttons
+// Quick scroll buttons
 document.getElementById('btn-jump-bottom').addEventListener('click', () => {
   const container = document.getElementById('chat-container');
   container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
@@ -526,7 +557,7 @@ document.getElementById('btn-export-json').addEventListener('click', () => {
   downloadAnchor.remove();
 });
 
-// Paste modal logic
+// Paste modal
 const pasteModal = document.getElementById('paste-modal');
 const pasteTextarea = document.getElementById('paste-textarea');
 
@@ -550,33 +581,52 @@ document.getElementById('btn-apply-paste').addEventListener('click', () => {
   pasteTextarea.value = '';
 });
 
-// Theme switcher
+// Theme switcher sync (App + Landing header)
 const btnTheme = document.getElementById('btn-theme-toggle');
 const themeSun = document.getElementById('theme-sun');
 const themeMoon = document.getElementById('theme-moon');
 
+const landingBtnTheme = document.getElementById('landing-theme-toggle');
+const landingThemeSun = document.getElementById('landing-theme-sun');
+const landingThemeMoon = document.getElementById('landing-theme-moon');
+
+function syncThemeIcons(isDark) {
+  if (isDark) {
+    themeSun.classList.add('hidden');
+    themeMoon.classList.remove('hidden');
+    landingThemeSun.classList.add('hidden');
+    landingThemeMoon.classList.remove('hidden');
+  } else {
+    themeSun.classList.remove('hidden');
+    themeMoon.classList.add('hidden');
+    landingThemeSun.classList.remove('hidden');
+    landingThemeMoon.classList.add('hidden');
+  }
+}
+
 function toggleTheme() {
   if (document.documentElement.classList.contains('dark')) {
     document.documentElement.classList.remove('dark');
-    themeSun.classList.remove('hidden');
-    themeMoon.classList.add('hidden');
     localStorage.setItem('chatflow_theme', 'light');
+    syncThemeIcons(false);
   } else {
     document.documentElement.classList.add('dark');
-    themeSun.classList.add('hidden');
-    themeMoon.classList.remove('hidden');
     localStorage.setItem('chatflow_theme', 'dark');
+    syncThemeIcons(true);
   }
 }
 
 btnTheme.addEventListener('click', toggleTheme);
+landingBtnTheme.addEventListener('click', toggleTheme);
 
-if (localStorage.getItem('chatflow_theme') === 'dark' || (!('chatflow_theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+// Theme initialization
+const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const savedTheme = localStorage.getItem('chatflow_theme');
+
+if (savedTheme === 'dark' || (!savedTheme && isSystemDark)) {
   document.documentElement.classList.add('dark');
-  themeSun.classList.add('hidden');
-  themeMoon.classList.remove('hidden');
+  syncThemeIcons(true);
 } else {
   document.documentElement.classList.remove('dark');
-  themeSun.classList.remove('hidden');
-  themeMoon.classList.add('hidden');
+  syncThemeIcons(false);
 }

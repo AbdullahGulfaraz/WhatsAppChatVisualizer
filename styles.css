@@ -1,3 +1,8 @@
+/* Smooth scrolling for anchor jumps */
+html {
+  scroll-behavior: smooth;
+}
+
 /* WhatsApp wallpaper subtle dot pattern */
 .chat-bg-pattern-light {
   background-color: #efeae2;
@@ -53,8 +58,12 @@ button, select, input, a {
 
 /* Print view optimization */
 @media print {
-  header, aside, #chat-footer-bar, .h-14 {
+  #landing-view, header, aside, #chat-footer-bar, .h-14 {
     display: none !important;
+  }
+  #app-view {
+    display: block !important;
+    height: auto !important;
   }
   #chat-container {
     overflow: visible !important;
