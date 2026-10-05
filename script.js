@@ -528,23 +528,87 @@ if (footerDropzone && footerFileInput) {
   });
 }
 
-function handleChatFile(file) {
-  if (!file.name.endsWith('.txt') && file.type !== 'text/plain') {
-    alertFallback('Please upload a valid .txt file exported from WhatsApp.');
+/**
+ * Automatically handle either .txt or .zip chat export files
+ */
+async function handleChatFile(file) {
+  const fileName = file.name.toLowerCase();
+
+  // 1. Handle .ZIP files
+  if (fileName.endsWith('.zip') || file.type === 'application/zip' || file.type === 'application/x-zip-compressed') {
+    if (typeof JSZip === 'undefined') {
+      alertFallback('Zip extractor is loading. Please check your internet connection and retry.');
+      return;
+    }
+
+    try {
+      const zip = new JSZip();
+      const zipContent = await zip.loadAsync(file);
+
+      // Look for the main chat log file inside the ZIP archive
+      // Usually named "_chat.txt", "WhatsApp Chat with <Name>.txt", or any file ending with .txt
+      let chatEntry = null;
+      let preferredTxtName = '';
+
+      zipContent.forEach((relativePath, entry) => {
+        if (!entry.dir && relativePath.toLowerCase().endsWith('.txt')) {
+          // Priority to _chat.txt (iOS format) or files with 'whatsapp' or 'chat' in the name
+          if (relativePath.toLowerCase() === '_chat.txt' || relativePath.toLowerCase().includes('chat')) {
+            chatEntry = entry;
+            preferredTxtName = relativePath;
+          } else if (!chatEntry) {
+            chatEntry = entry;
+            preferredTxtName = relativePath;
+          }
+        }
+      });
+
+      if (!chatEntry) {
+        alertFallback('No WhatsApp .txt chat log found inside this zip file.');
+        return;
+      }
+
+      // Read text content directly from the zip in memory
+      const text = await chatEntry.async('string');
+      
+      // Determine title: prefer clean zip file name or extracted txt name
+      let chatTitle = file.name.replace(/\.zip$/i, '').replace(/^WhatsApp Chat - /i, '');
+      if (preferredTxtName && preferredTxtName.toLowerCase() !== '_chat.txt') {
+        chatTitle = preferredTxtName.replace(/\.txt$/i, '').replace(/^WhatsApp Chat - /i, '');
+      }
+
+      processChatData(text, chatTitle);
+
+      setTimeout(() => {
+        const container = document.getElementById('chat-container');
+        if (container) container.scrollTop = container.scrollHeight;
+      }, 100);
+
+    } catch (err) {
+      console.error('Error unzipping chat file:', err);
+      alertFallback('Failed to extract chat from zip file. Please make sure it is a valid zip archive.');
+    }
     return;
   }
 
-  const reader = new FileReader();
-  reader.onload = (event) => {
-    const text = event.target.result;
-    const chatTitle = file.name.replace('.txt', '').replace(/^WhatsApp Chat - /, '');
-    processChatData(text, chatTitle);
-    setTimeout(() => {
-      const container = document.getElementById('chat-container');
-      container.scrollTop = container.scrollHeight;
-    }, 100);
-  };
-  reader.readAsText(file);
+  // 2. Handle plain .TXT files
+  if (fileName.endsWith('.txt') || file.type === 'text/plain') {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const text = event.target.result;
+      const chatTitle = file.name.replace(/\.txt$/i, '').replace(/^WhatsApp Chat - /i, '');
+      processChatData(text, chatTitle);
+      setTimeout(() => {
+        const container = document.getElementById('chat-container');
+        if (container) container.scrollTop = container.scrollHeight;
+      }, 100);
+    };
+    reader.readAsText(file);
+    return;
+  }
+
+  // Fallback for unsupported extensions
+  alertFallback('Please upload a valid .txt or .zip file exported from WhatsApp.');
 }
 
 // User perspective dropdown
