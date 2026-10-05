@@ -948,3 +948,37 @@ if (savedTheme === 'dark' || (!savedTheme && isSystemDark)) {
 
   runCycle();
 })();
+
+// ========================================================
+// SCROLL-DRIVEN REVEAL ANIMATIONS (INTERSECTION OBSERVER)
+// ========================================================
+(function initScrollAnimations() {
+  const targets = document.querySelectorAll('.scroll-reveal');
+  if (!targets.length) return;
+
+  // Set initial invisible state
+  targets.forEach(el => el.classList.add('reveal-init'));
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -60px 0px', // triggers slightly before scrolling fully into view
+    threshold: 0.15
+  };
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const delay = el.getAttribute('data-delay') || 0;
+
+        setTimeout(() => {
+          el.classList.add('reveal-visible');
+        }, parseInt(delay, 10));
+
+        obs.unobserve(el); // Animate once for a clean experience
+      }
+    });
+  }, observerOptions);
+
+  targets.forEach(el => observer.observe(el));
+})();

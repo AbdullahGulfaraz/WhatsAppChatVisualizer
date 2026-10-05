@@ -124,14 +124,14 @@
             
             <!-- Trust Badge -->
             <div
-              class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200/80 dark:border-emerald-800/60 text-[11px] sm:text-xs font-semibold text-emerald-800 dark:text-emerald-300 mb-6 shadow-2xs">
+              class="hero-animate-badge inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200/80 dark:border-emerald-800/60 text-[11px] sm:text-xs font-semibold text-emerald-800 dark:text-emerald-300 mb-6 shadow-2xs">
               <span class="w-2 h-2 rounded-full bg-wa-green animate-pulse"></span>
               100% Client-Side • Your chats never leave your device
             </div>
 
             <!-- Main Heading -->
             <h1
-              class="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.12] mb-5">
+              class="hero-animate-title text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.12] mb-5">
               Turn messy WhatsApp logs into <br class="hidden sm:inline">
               <span
                 class="bg-gradient-to-r from-wa-teal via-emerald-400 to-teal-400 bg-clip-text text-transparent">beautiful
@@ -139,7 +139,7 @@
             </h1>
 
             <!-- Subtitle -->
-            <p class="max-w-xl text-sm sm:text-base text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
+            <p class="hero-animate-desc max-w-xl text-sm sm:text-base text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
               No more parsing flat <code
                 class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-xs font-mono text-emerald-600 dark:text-emerald-400 font-semibold">.txt</code>
               or <code
@@ -148,8 +148,8 @@
               noise filtering.
             </p>
 
-            <!-- Primary CTAs (Placed directly beneath text on the left) -->
-            <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto">
+            <!-- Primary CTAs -->
+            <div class="hero-animate-cta flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto">
               <button id="btn-hero-upload"
                 class="w-full sm:w-auto px-6 py-3.5 bg-wa-teal hover:bg-wa-tealDark text-white text-sm font-bold rounded-2xl shadow-lg shadow-wa-teal/25 transition active:scale-95 flex items-center justify-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -168,8 +168,8 @@
               </button>
             </div>
 
-            <!-- Feature Badges -->
-            <div class="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs text-slate-500 dark:text-slate-400 font-medium">
+            <!-- Feature Checkmarks -->
+            <div class="hero-animate-features mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs text-slate-500 dark:text-slate-400 font-medium">
               <span class="flex items-center gap-1.5">
                 <svg class="w-3.5 h-3.5 text-wa-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                 iOS & Android
@@ -185,6 +185,10 @@
             </div>
 
           </div>
+
+          <!-- Right Column: Phone Mockup Wrapper -->
+          <div class="hero-animate-phone lg:col-span-5 flex justify-center items-center relative w-full py-4">
+            <!-- phone mockup elements -->
 
           <!-- Right Column: Authentic Dimension Smartphone Device Mockup -->
           <div class="lg:col-span-5 flex justify-center items-center relative w-full py-4">
@@ -279,46 +283,34 @@
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             <!-- Step 1 -->
-            <div
-              class="p-8 rounded-3xl bg-slate-50 dark:bg-wa-bgDark border border-slate-200/70 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+            <div class="scroll-reveal p-8 rounded-3xl bg-slate-50 dark:bg-wa-bgDark border border-slate-200/70 dark:border-slate-800 shadow-sm flex flex-col justify-between" data-delay="0">
               <div>
-                <div
-                  class="w-12 h-12 rounded-2xl bg-wa-teal/10 text-wa-teal flex items-center justify-center font-extrabold text-lg mb-6">
-                  1</div>
+                <div class="w-12 h-12 rounded-2xl bg-wa-teal/10 text-wa-teal flex items-center justify-center font-extrabold text-lg mb-6">1</div>
                 <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Export Your Chat</h4>
                 <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  In WhatsApp, open any chat > tap <b>More</b> > <b>Export Chat</b> > choose <b>Without Media</b> to
-                  produce a lightweight <code class="text-xs font-mono text-wa-teal">.txt</code> file.
+                  In WhatsApp, open any chat > tap <b>More</b> > <b>Export Chat</b> > choose <b>Without Media</b> to produce a lightweight <code class="text-xs font-mono text-wa-teal">.txt</code> or <code class="text-xs font-mono text-wa-teal">.zip</code> file.
                 </p>
               </div>
             </div>
 
             <!-- Step 2 -->
-            <div
-              class="p-8 rounded-3xl bg-slate-50 dark:bg-wa-bgDark border border-slate-200/70 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+            <div class="scroll-reveal p-8 rounded-3xl bg-slate-50 dark:bg-wa-bgDark border border-slate-200/70 dark:border-slate-800 shadow-sm flex flex-col justify-between" data-delay="150">
               <div>
-                <div
-                  class="w-12 h-12 rounded-2xl bg-wa-teal/10 text-wa-teal flex items-center justify-center font-extrabold text-lg mb-6">
-                  2</div>
+                <div class="w-12 h-12 rounded-2xl bg-wa-teal/10 text-wa-teal flex items-center justify-center font-extrabold text-lg mb-6">2</div>
                 <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Drop & Pick Identity</h4>
                 <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Drop your file directly into the visualizer. Choose your name from the participant selector so your
-                  messages align to the right side with receipts.
+                  Drop your file directly into the visualizer. Choose your name from the participant selector so your messages align to the right side with receipts.
                 </p>
               </div>
             </div>
 
             <!-- Step 3 -->
-            <div
-              class="p-8 rounded-3xl bg-slate-50 dark:bg-wa-bgDark border border-slate-200/70 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+            <div class="scroll-reveal p-8 rounded-3xl bg-slate-50 dark:bg-wa-bgDark border border-slate-200/70 dark:border-slate-800 shadow-sm flex flex-col justify-between" data-delay="300">
               <div>
-                <div
-                  class="w-12 h-12 rounded-2xl bg-wa-teal/10 text-wa-teal flex items-center justify-center font-extrabold text-lg mb-6">
-                  3</div>
+                <div class="w-12 h-12 rounded-2xl bg-wa-teal/10 text-wa-teal flex items-center justify-center font-extrabold text-lg mb-6">3</div>
                 <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Explore, Search & Export</h4>
                 <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Search across thousands of messages in real time, review group member metrics, print clean records, or
-                  export parsed data to structured JSON.
+                  Search across thousands of messages in real time, review group member metrics, print clean records, or export parsed data to structured JSON.
                 </p>
               </div>
             </div>
@@ -335,100 +327,64 @@
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-            <div
-              class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
-              <div
-                class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
+            
+            <div class="scroll-reveal p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition" data-delay="0">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
               </div>
               <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">Universal Multi-Format Parser</h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Handles iOS bracket format, Android 12h/24h timestamps, multiline messages, and system security alerts
-                without breaking.
+                Handles iOS bracket format, Android 12h/24h timestamps, multiline messages, and system security alerts without breaking.
               </p>
             </div>
 
-            <div
-              class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
-              <div
-                class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
+            <div class="scroll-reveal p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition" data-delay="100">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
               </div>
               <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">Unicode & Noise Cleaning</h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Strips out ghost call entries, invisible zero-width spaces (<code
-                  class="text-[10px] font-mono">\u200B</code>), and empty dates automatically.
+                Strips out ghost call entries, invisible zero-width spaces (<code class="text-[10px] font-mono">\u200B</code>), and empty dates automatically.
               </p>
             </div>
 
-            <div id="privacy"
-              class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
-              <div
-                class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
+            <div id="privacy" class="scroll-reveal p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition" data-delay="200">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
               </div>
               <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">100% In-Browser Privacy</h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Zero telemetry, zero uploads. Your conversations are processed strictly in memory on your personal
-                machine.
+                Zero telemetry, zero uploads. Your conversations are processed strictly in memory on your personal machine.
               </p>
             </div>
 
-            <div
-              class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
-              <div
-                class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
+            <div class="scroll-reveal p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition" data-delay="0">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
               </div>
               <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">Real-Time Search & Stats</h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Locate specific phrases across years of conversations with instant search highlights and message counts
-                per person.
+                Locate specific phrases across years of conversations with instant search highlights and message counts per person.
               </p>
             </div>
 
-            <div
-              class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
-              <div
-                class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
+            <div class="scroll-reveal p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition" data-delay="100">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
               </div>
               <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">JSON & PDF Export</h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Convert legacy text dumps into structured JSON for analysis or print high-fidelity documents for
-                official records.
+                Convert legacy text dumps into structured JSON for analysis or print high-fidelity documents for official records.
               </p>
             </div>
 
-            <div
-              class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
-              <div
-                class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
+            <div class="scroll-reveal p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition" data-delay="200">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
               </div>
               <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">Dark & Light Wallpaper</h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Authentic WhatsApp patterns and responsive drawer controls engineered for desktop and touch screen
-                displays.
+                Authentic WhatsApp patterns and responsive drawer controls engineered for desktop and touch screen displays.
               </p>
             </div>
 
