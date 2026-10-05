@@ -3,6 +3,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Scroll Hide Header Animation helper */
+.header-hidden {
+  transform: translateY(-100%);
+}
+
 /* WhatsApp wallpaper subtle dot pattern */
 .chat-bg-pattern-light {
   background-color: #efeae2;

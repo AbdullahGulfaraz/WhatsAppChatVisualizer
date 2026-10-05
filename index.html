@@ -6,7 +6,7 @@
   <title>ChatFlow — WhatsApp Chat Export Visualizer</title>
   <link rel="icon" type="image/svg+xml" href="logo.svg">
 
-  <!----> Tailwind CSS CDN -->
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,12 +55,12 @@
   <!-- ======================================================== -->
   <!-- 1. LANDING PAGE VIEW (#landing-view)                     -->
   <!-- ======================================================== -->
-  <div id="landing-view" class="min-h-screen flex flex-col justify-between transition-opacity duration-300">
+  <div id="landing-view" class="min-h-[100dvh] flex flex-col justify-between transition-opacity duration-300">
     
-    <!-- Top Landing Header -->
-    <header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-wa-panelDark/80 border-b border-slate-200/80 dark:border-wa-borderDark transition-colors">
+    <!-- Top Landing Header with Scroll-Hide -->
+    <header id="landing-header" class="fixed top-0 inset-x-0 z-40 backdrop-blur-md bg-white/90 dark:bg-wa-panelDark/90 border-b border-slate-200/80 dark:border-wa-borderDark transition-transform duration-300">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        <div class="flex items-center space-x-2.5">
+        <div class="flex items-center space-x-2.5 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
           <img src="logo.svg" alt="ChatFlow Logo" class="w-8 h-8 rounded-xl shadow-xs">
           <span class="font-extrabold text-base sm:text-lg tracking-tight bg-gradient-to-r from-wa-teal to-emerald-500 bg-clip-text text-transparent">ChatFlow</span>
         </div>
@@ -85,15 +85,15 @@
       </div>
     </header>
 
-    <!-- Main Landing Content -->
-    <main class="flex-1">
+    <!-- Main Dynamic Full-Screen Sections -->
+    <main class="flex-1 w-full">
       
-      <!-- Hero Section -->
-      <section class="relative overflow-hidden pt-12 sm:pt-20 pb-16 px-4 sm:px-6">
-        <div class="max-w-5xl mx-auto text-center relative z-10">
+      <!-- 1. Hero Full-Screen Section -->
+      <section id="hero" class="min-h-[100dvh] flex flex-col justify-center relative overflow-hidden pt-20 pb-12 px-4 sm:px-6">
+        <div class="max-w-5xl mx-auto text-center relative z-10 w-full">
           
           <!-- Trust Badge -->
-          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-[11px] sm:text-xs font-semibold text-emerald-800 dark:text-emerald-300 mb-6 shadow-2xs">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-[11px] sm:text-xs font-semibold text-emerald-800 dark:text-emerald-300 mb-6 shadow-2xs">
             <span class="w-2 h-2 rounded-full bg-wa-green animate-pulse"></span>
             100% Client-Side • Your chats never leave your device
           </div>
@@ -108,7 +108,7 @@
           </p>
 
           <!-- Primary CTAs -->
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-12">
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10">
             <button id="btn-hero-upload" class="w-full sm:w-auto px-6 py-3.5 bg-wa-teal hover:bg-wa-tealDark text-white text-sm font-bold rounded-2xl shadow-lg shadow-wa-teal/25 transition active:scale-95 flex items-center justify-center gap-2">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
               Upload Chat (.txt)
@@ -155,110 +155,116 @@
         </div>
       </section>
 
-      <!-- how-it-works Section -->
-      <section id="how-it-works" class="py-16 bg-white dark:bg-wa-panelDark/60 border-y border-slate-200/80 dark:border-wa-borderDark px-4 sm:px-6">
-        <div class="max-w-5xl mx-auto">
-          <div class="text-center max-w-xl mx-auto mb-12">
+      <!-- 2. How It Works Full-Screen Section -->
+      <section id="how-it-works" class="min-h-[100dvh] flex flex-col justify-center py-20 bg-white dark:bg-wa-panelDark/60 border-y border-slate-200/80 dark:border-wa-borderDark px-4 sm:px-6">
+        <div class="max-w-5xl mx-auto w-full my-auto">
+          <div class="text-center max-w-xl mx-auto mb-14">
             <h2 class="text-xs font-bold uppercase tracking-wider text-wa-teal mb-2">Simple Workflow</h2>
-            <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Visualize in 3 Quick Steps</h3>
+            <h3 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Visualize in 3 Quick Steps</h3>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             <!-- Step 1 -->
-            <div class="p-6 rounded-2xl bg-slate-50 dark:bg-wa-bgDark border border-slate-200/70 dark:border-slate-800 shadow-xs">
-              <div class="w-10 h-10 rounded-xl bg-wa-teal/10 text-wa-teal flex items-center justify-center font-bold text-base mb-4">1</div>
-              <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">Export Your Chat</h4>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                In WhatsApp, tap any chat > <b>More</b> > <b>Export Chat</b> > choose <b>Without Media</b> to generate a <code class="text-[11px] font-mono">.txt</code> file.
-              </p>
+            <div class="p-8 rounded-3xl bg-slate-50 dark:bg-wa-bgDark border border-slate-200/70 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+              <div>
+                <div class="w-12 h-12 rounded-2xl bg-wa-teal/10 text-wa-teal flex items-center justify-center font-extrabold text-lg mb-6">1</div>
+                <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Export Your Chat</h4>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  In WhatsApp, open any chat > tap <b>More</b> > <b>Export Chat</b> > choose <b>Without Media</b> to produce a lightweight <code class="text-xs font-mono text-wa-teal">.txt</code> file.
+                </p>
+              </div>
             </div>
 
             <!-- Step 2 -->
-            <div class="p-6 rounded-2xl bg-slate-50 dark:bg-wa-bgDark border border-slate-200/70 dark:border-slate-800 shadow-xs">
-              <div class="w-10 h-10 rounded-xl bg-wa-teal/10 text-wa-teal flex items-center justify-center font-bold text-base mb-4">2</div>
-              <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">Drop & Select Perspective</h4>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Drop your export file directly into ChatFlow. Pick who you are from the participant dropdown to align bubbles naturally.
-              </p>
+            <div class="p-8 rounded-3xl bg-slate-50 dark:bg-wa-bgDark border border-slate-200/70 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+              <div>
+                <div class="w-12 h-12 rounded-2xl bg-wa-teal/10 text-wa-teal flex items-center justify-center font-extrabold text-lg mb-6">2</div>
+                <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Drop & Pick Identity</h4>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Drop your file directly into the visualizer. Choose your name from the participant selector so your messages align to the right side with receipts.
+                </p>
+              </div>
             </div>
 
             <!-- Step 3 -->
-            <div class="p-6 rounded-2xl bg-slate-50 dark:bg-wa-bgDark border border-slate-200/70 dark:border-slate-800 shadow-xs">
-              <div class="w-10 h-10 rounded-xl bg-wa-teal/10 text-wa-teal flex items-center justify-center font-bold text-base mb-4">3</div>
-              <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">Search & Relive</h4>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Search keywords in real time, review participant statistics, print to PDF, or export structured JSON data anytime.
-              </p>
+            <div class="p-8 rounded-3xl bg-slate-50 dark:bg-wa-bgDark border border-slate-200/70 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+              <div>
+                <div class="w-12 h-12 rounded-2xl bg-wa-teal/10 text-wa-teal flex items-center justify-center font-extrabold text-lg mb-6">3</div>
+                <h4 class="font-bold text-base text-slate-900 dark:text-white mb-2">Explore, Search & Export</h4>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Search across thousands of messages in real time, review group member metrics, print clean records, or export parsed data to structured JSON.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- features Bento Grid -->
-      <section id="features" class="py-16 px-4 sm:px-6">
-        <div class="max-w-5xl mx-auto">
-          <div class="text-center max-w-xl mx-auto mb-12">
+      <!-- 3. Features Bento Grid Full-Screen Section -->
+      <section id="features" class="min-h-[100dvh] flex flex-col justify-center py-20 px-4 sm:px-6">
+        <div class="max-w-5xl mx-auto w-full my-auto">
+          <div class="text-center max-w-xl mx-auto mb-14">
             <h2 class="text-xs font-bold uppercase tracking-wider text-wa-teal mb-2">Engineered with care</h2>
-            <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Why Use ChatFlow?</h3>
+            <h3 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Why Use ChatFlow?</h3>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
-            <div class="p-5 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs">
-              <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-3">
+            <div class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
               </div>
-              <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1">Universal Multi-Format Parser</h4>
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">Universal Multi-Format Parser</h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 Handles iOS bracket format, Android 12h/24h timestamps, multiline messages, and system security alerts without breaking.
               </p>
             </div>
 
-            <div class="p-5 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs">
-              <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-3">
+            <div class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
               </div>
-              <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1">Unicode & Noise Cleaning</h4>
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">Unicode & Noise Cleaning</h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 Strips out ghost call entries, invisible zero-width spaces (<code class="text-[10px] font-mono">\u200B</code>), and empty dates automatically.
               </p>
             </div>
 
-            <div id="privacy" class="p-5 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs">
-              <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-3">
+            <div id="privacy" class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
               </div>
-              <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1">100% In-Browser Privacy</h4>
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">100% In-Browser Privacy</h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 Zero telemetry, zero uploads. Your conversations are processed strictly in memory on your personal machine.
               </p>
             </div>
 
-            <div class="p-5 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs">
-              <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-3">
+            <div class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
               </div>
-              <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1">Real-Time Search & Stats</h4>
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">Real-Time Search & Stats</h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 Locate specific phrases across years of conversations with instant search highlights and message counts per person.
               </p>
             </div>
 
-            <div class="p-5 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs">
-              <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-3">
+            <div class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
               </div>
-              <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1">JSON & PDF Export</h4>
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">JSON & PDF Export</h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 Convert legacy text dumps into structured JSON for analysis or print high-fidelity documents for official records.
               </p>
             </div>
 
-            <div class="p-5 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs">
-              <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-3">
+            <div class="p-6 rounded-2xl bg-white dark:bg-wa-panelDark border border-slate-200/80 dark:border-wa-borderDark shadow-xs hover:border-wa-teal/50 transition">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-wa-teal flex items-center justify-center mb-4">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
               </div>
-              <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1">Dark & Light Wallpaper</h4>
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1.5">Dark & Light Wallpaper</h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 Authentic WhatsApp patterns and responsive drawer controls engineered for desktop and touch screen displays.
               </p>
@@ -270,16 +276,56 @@
 
     </main>
 
-    <!-- Landing Footer -->
-    <footer class="border-t border-slate-200/80 dark:border-wa-borderDark bg-white dark:bg-wa-panelDark py-6 px-4 sm:px-6">
-      <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
-        <div class="flex items-center space-x-2">
-          <img src="logo.svg" alt="ChatFlow Logo" class="w-5 h-5">
-          <span class="font-bold text-slate-700 dark:text-slate-200">ChatFlow</span>
-          <span>• Client-side WhatsApp Visualizer</span>
+    <!-- Comprehensive Landing Footer -->
+    <footer class="border-t border-slate-200/80 dark:border-wa-borderDark bg-white dark:bg-wa-panelDark py-12 px-4 sm:px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-slate-100 dark:border-wa-borderDark">
+          
+          <!-- Column 1: Brand Info -->
+          <div class="md:col-span-4 space-y-3">
+            <div class="flex items-center space-x-2.5">
+              <img src="logo.svg" alt="ChatFlow Logo" class="w-7 h-7 rounded-lg">
+              <span class="font-extrabold text-base tracking-tight text-slate-900 dark:text-white">ChatFlow</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Open-source, privacy-first WhatsApp export log visualizer. Reconstruct conversations securely right within your browser.
+            </p>
+          </div>
+
+          <!-- Column 2: Quick Links -->
+          <div class="md:col-span-3 space-y-2">
+            <h5 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200">Navigation</h5>
+            <ul class="space-y-1.5 text-xs text-slate-600 dark:text-slate-400">
+              <li><a href="#hero" class="hover:text-wa-teal dark:hover:text-wa-teal transition">Back to Top</a></li>
+              <li><a href="#how-it-works" class="hover:text-wa-teal dark:hover:text-wa-teal transition">How It Works</a></li>
+              <li><a href="#features" class="hover:text-wa-teal dark:hover:text-wa-teal transition">Features Bento</a></li>
+              <li><a href="#privacy" class="hover:text-wa-teal dark:hover:text-wa-teal transition">Privacy Architecture</a></li>
+              <li><button id="footer-btn-demo" class="hover:text-wa-teal dark:hover:text-wa-teal transition">Launch Interactive Demo</button></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Direct Footer Upload Launchpad -->
+          <div class="md:col-span-5 space-y-3">
+            <h5 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200">Quick File Launcher</h5>
+            <div id="footer-dropzone" class="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-wa-teal dark:hover:border-wa-teal rounded-2xl p-4 text-center cursor-pointer transition bg-slate-50/50 dark:bg-wa-bgDark/50 group">
+              <input type="file" id="footer-file-input" accept=".txt,text/plain" class="hidden">
+              <svg class="w-6 h-6 mx-auto text-slate-400 group-hover:text-wa-teal transition mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+              </svg>
+              <p class="text-xs font-semibold text-slate-700 dark:text-slate-300">Drop your chat file here</p>
+              <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">Loads directly into the interactive visualizer</p>
+            </div>
+          </div>
+
         </div>
-        <div>
-          Open Source project • Built for privacy & speed
+
+        <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
+          <div>© 2026 ChatFlow. Free & open source.</div>
+          <div class="flex items-center space-x-4">
+            <span>Client-side session processing</span>
+            <span>•</span>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="hover:text-wa-teal transition">GitHub</a>
+          </div>
         </div>
       </div>
     </footer>
@@ -366,7 +412,7 @@
           </button>
         </div>
 
-        <!-- File Upload Dropzone -->
+        <!-- File Upload Dropzone inside Visualizer -->
         <div class="p-3 border-b border-gray-200 dark:border-wa-borderDark">
           <div id="dropzone" class="border-2 border-dashed border-gray-300 dark:border-gray-700 hover:border-wa-teal dark:hover:border-wa-teal rounded-xl p-3 sm:p-4 text-center cursor-pointer transition bg-gray-50 dark:bg-gray-800/40 group">
             <input type="file" id="file-input" accept=".txt,text/plain" class="hidden">
@@ -531,4 +577,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-

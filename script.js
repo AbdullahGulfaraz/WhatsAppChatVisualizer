@@ -50,17 +50,46 @@ function showLandingView() {
 document.getElementById('btn-hero-launch').addEventListener('click', showAppView);
 document.getElementById('btn-back-home').addEventListener('click', showLandingView);
 
-// Hero CTA: Upload Chat triggers file selector directly
+// Hero CTAs
 document.getElementById('btn-hero-upload').addEventListener('click', () => {
   showAppView();
   document.getElementById('file-input').click();
 });
 
-// Hero CTA: Try Interactive Demo loads sample and opens app view
 document.getElementById('btn-hero-sample').addEventListener('click', () => {
   processChatData(SAMPLE_CHAT, 'Product Design Sprint 🚀');
   showAppView();
 });
+
+// Footer Launchers
+const footerBtnDemo = document.getElementById('footer-btn-demo');
+if (footerBtnDemo) {
+  footerBtnDemo.addEventListener('click', () => {
+    processChatData(SAMPLE_CHAT, 'Product Design Sprint 🚀');
+    showAppView();
+  });
+}
+
+// --- DYNAMIC AUTO-HIDE NAVBAR ON SCROLL ---
+const landingHeader = document.getElementById('landing-header');
+let lastScrollY = window.scrollY;
+
+window.addEventListener('scroll', () => {
+  // Only apply when landing page is visible
+  if (landingView.classList.contains('hidden')) return;
+
+  const currentScrollY = window.scrollY;
+
+  if (currentScrollY > lastScrollY && currentScrollY > 80) {
+    // Scrolling down -> hide navbar
+    landingHeader.classList.add('header-hidden');
+  } else {
+    // Scrolling up or at top -> show navbar
+    landingHeader.classList.remove('header-hidden');
+  }
+
+  lastScrollY = currentScrollY;
+}, { passive: true });
 
 // Helper: check if message contains visible text (ignoring zero-width unicode spaces)
 function hasVisibleText(text) {
@@ -426,7 +455,7 @@ if (btnOpenSidebar) btnOpenSidebar.addEventListener('click', openMobileSidebar);
 if (btnCloseSidebar) btnCloseSidebar.addEventListener('click', closeMobileSidebar);
 if (drawerBackdrop) drawerBackdrop.addEventListener('click', closeMobileSidebar);
 
-// File Dropzone Handling
+// File Dropzone Handling (App Workspace)
 const dropzone = document.getElementById('dropzone');
 const fileInput = document.getElementById('file-input');
 
@@ -464,6 +493,40 @@ fileInput.addEventListener('change', (e) => {
 });
 
 document.getElementById('btn-empty-browse').addEventListener('click', () => fileInput.click());
+
+// Direct Footer Dropzone Handling
+const footerDropzone = document.getElementById('footer-dropzone');
+const footerFileInput = document.getElementById('footer-file-input');
+
+if (footerDropzone && footerFileInput) {
+  footerDropzone.addEventListener('click', () => footerFileInput.click());
+
+  footerFileInput.addEventListener('change', (e) => {
+    if (e.target.files.length > 0) {
+      showAppView();
+      handleChatFile(e.target.files[0]);
+    }
+  });
+
+  footerDropzone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    footerDropzone.classList.add('border-wa-teal', 'bg-emerald-50/30');
+  });
+
+  footerDropzone.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    footerDropzone.classList.remove('border-wa-teal', 'bg-emerald-50/30');
+  });
+
+  footerDropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    footerDropzone.classList.remove('border-wa-teal', 'bg-emerald-50/30');
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      showAppView();
+      handleChatFile(e.dataTransfer.files[0]);
+    }
+  });
+}
 
 function handleChatFile(file) {
   if (!file.name.endsWith('.txt') && file.type !== 'text/plain') {
