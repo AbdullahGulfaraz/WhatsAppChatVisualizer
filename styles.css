@@ -120,3 +120,67 @@ button, select, input, a {
 .typing-dot:nth-child(1) { animation-delay: -0.32s; }
 .typing-dot:nth-child(2) { animation-delay: -0.16s; }
 .typing-dot:nth-child(3) { animation-delay: 0s; }
+
+/* Floating in the air gentle levitation animation */
+@keyframes floatInAir {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(0.3deg);
+  }
+}
+
+.floating-card-air {
+  animation: floatInAir 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Pause levitation slightly on hover so user can inspect */
+.floating-card-air:hover {
+  animation-play-state: paused;
+}
+
+/* Smooth spring-in for message bubbles */
+@keyframes bubblePop {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  70% {
+    transform: translateY(-2px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-bubble-pop {
+  animation: bubblePop 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Typing Indicator Dots Bounce */
+@keyframes typingBounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0.3;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.typing-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: currentColor;
+  display: inline-block;
+  animation: typingBounce 1.2s infinite ease-in-out both;
+}
+
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+.typing-dot:nth-child(3) { animation-delay: 0s; }

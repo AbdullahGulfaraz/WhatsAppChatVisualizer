@@ -757,7 +757,7 @@ if (savedTheme === 'dark' || (!savedTheme && isSystemDark)) {
 }
 
 // ========================================================
-// HERO SECTION LIVE TYPING & BUBBLE POP SIMULATION
+// HERO SECTION LIVE TYPING & LOCKED-BOX SIMULATION
 // ========================================================
 (function initHeroSimulation() {
   const canvas = document.getElementById('sim-chat-canvas');
@@ -776,15 +776,26 @@ if (savedTheme === 'dark' || (!savedTheme && isSystemDark)) {
     }
   }
 
+  function scrollBoxToBottom() {
+    const parentContainer = canvas.parentElement;
+    if (parentContainer) {
+      parentContainer.scrollTo({
+        top: parentContainer.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+  }
+
   function renderTypingIndicator(senderName, isRight = false) {
     const wrapper = document.createElement('div');
     wrapper.id = 'sim-typing-bubble';
     wrapper.className = `flex flex-col ${isRight ? 'items-end' : 'items-start'} animate-bubble-pop`;
 
     wrapper.innerHTML = `
-      <div class="px-3.5 py-2 rounded-2xl ${isRight
-        ? 'bg-wa-bubbleSentLight dark:bg-wa-bubbleSentDark text-slate-700 dark:text-slate-200 rounded-tr-none'
-        : 'bg-white dark:bg-wa-bubbleRecvDark text-slate-600 dark:text-slate-300 rounded-tl-none shadow-xs'
+      <div class="px-3.5 py-2 rounded-2xl ${
+        isRight 
+          ? 'bg-wa-bubbleSentLight dark:bg-wa-bubbleSentDark text-slate-700 dark:text-slate-200 rounded-tr-none' 
+          : 'bg-white dark:bg-wa-bubbleRecvDark text-slate-600 dark:text-slate-300 rounded-tl-none shadow-xs'
       } flex items-center space-x-1.5">
         <span class="typing-dot"></span>
         <span class="typing-dot"></span>
@@ -792,6 +803,7 @@ if (savedTheme === 'dark' || (!savedTheme && isSystemDark)) {
       </div>
     `;
     canvas.appendChild(wrapper);
+    scrollBoxToBottom();
   }
 
   function removeTypingIndicator() {
@@ -814,9 +826,10 @@ if (savedTheme === 'dark' || (!savedTheme && isSystemDark)) {
     }
 
     bubbleWrapper.innerHTML = `
-      <div class="max-w-[85%] rounded-2xl px-3 py-1.5 sm:px-3.5 sm:py-2 shadow-xs ${isMe
-        ? 'bg-wa-bubbleSentLight dark:bg-wa-bubbleSentDark text-slate-900 dark:text-slate-100 rounded-tr-none'
-        : 'bg-white dark:bg-wa-bubbleRecvDark text-slate-900 dark:text-slate-100 rounded-tl-none border border-black/5 dark:border-white/5'
+      <div class="max-w-[85%] rounded-2xl px-3 py-1.5 sm:px-3.5 sm:py-2 shadow-xs ${
+        isMe
+          ? 'bg-wa-bubbleSentLight dark:bg-wa-bubbleSentDark text-slate-900 dark:text-slate-100 rounded-tr-none'
+          : 'bg-white dark:bg-wa-bubbleRecvDark text-slate-900 dark:text-slate-100 rounded-tl-none border border-black/5 dark:border-white/5'
       }">
         ${!isMe ? `<span class="text-[10px] font-bold block mb-0.5" style="color: ${color}">${sender}</span>` : ''}
         ${attachmentHTML}
@@ -835,6 +848,7 @@ if (savedTheme === 'dark' || (!savedTheme && isSystemDark)) {
     `;
 
     canvas.appendChild(bubbleWrapper);
+    scrollBoxToBottom();
   }
 
   async function runCycle() {
@@ -842,7 +856,7 @@ if (savedTheme === 'dark' || (!savedTheme && isSystemDark)) {
     setStatus('Alex, Sophia, Marcus');
     await wait(600);
 
-    // 1. Sophia message lands
+    // 1. Sophia initial message
     appendBubble({
       sender: 'Sophia Chen',
       color: '#059669',
@@ -850,63 +864,81 @@ if (savedTheme === 'dark' || (!savedTheme && isSystemDark)) {
       isMe: false,
       time: '10:14 AM'
     });
-    await wait(1200);
+    await wait(1400);
 
     // 2. You start typing
     setStatus('Alex is typing...', true);
     renderTypingIndicator('Alex', true);
-    await wait(1600);
+    await wait(1500);
     removeTypingIndicator();
     setStatus('Alex, Sophia, Marcus');
 
-    // 3. You send message with single checkmark
-    const checkId = 'sim-receipt-' + Date.now();
+    // 3. You reply
+    const checkId1 = 'sim-receipt-1';
     appendBubble({
       sender: 'You',
       text: 'Looks super clean! Parsing it directly into ChatFlow now ⚡',
       isMe: true,
       time: '10:15 AM',
-      statusId: checkId
+      statusId: checkId1
     });
 
-    // 4. Checkmark turns to double checkmark, then turns read (blue)
+    // Checkmark turns double, then blue
     await wait(400);
-    const receiptEl = document.getElementById(checkId);
-    if (receiptEl) {
-      receiptEl.innerHTML = `
-        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7m-7 4l4 4" />
-        </svg>
-      `;
+    const receipt1 = document.getElementById(checkId1);
+    if (receipt1) {
+      receipt1.innerHTML = `<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7m-7 4l4 4"/></svg>`;
+    }
+    await wait(500);
+    if (receipt1) {
+      receipt1.classList.remove('text-slate-400');
+      receipt1.classList.add('text-blue-500');
     }
 
-    await wait(600);
-    if (receiptEl) {
-      receiptEl.classList.remove('text-slate-400');
-      receiptEl.classList.add('text-blue-500');
-    }
+    await wait(1200);
 
-    await wait(1100);
-
-    // 5. Marcus typing
+    // 4. Marcus typing
     setStatus('Marcus Vance is typing...', true);
     renderTypingIndicator('Marcus', false);
     await wait(1400);
     removeTypingIndicator();
     setStatus('Alex, Sophia, Marcus');
 
-    // 6. Marcus responds with attachment
+    // 5. Marcus responds with attachment (starts pushing older messages smoothly upward)
     appendBubble({
       sender: 'Marcus Vance',
       color: '#2563eb',
-      text: 'Synced! Exported the full log below.',
-      attachment: 'WhatsApp Chat - Sprint_Log.txt (14 KB)',
+      text: 'Synced! Here is the raw WhatsApp archive for testing.',
+      attachment: '_chat.txt (28 KB)',
       isMe: false,
       time: '10:16 AM'
     });
 
-    // Wait and loop
-    await wait(4500);
+    await wait(1500);
+
+    // 6. You reply once more to demonstrate older messages fading behind the top header
+    setStatus('Alex is typing...', true);
+    renderTypingIndicator('Alex', true);
+    await wait(1300);
+    removeTypingIndicator();
+    setStatus('Alex, Sophia, Marcus');
+
+    const checkId2 = 'sim-receipt-2';
+    appendBubble({
+      sender: 'You',
+      text: 'Imported in 20ms. Zero data sent to servers 🔒',
+      isMe: true,
+      time: '10:17 AM',
+      statusId: checkId2
+    });
+
+    const receipt2 = document.getElementById(checkId2);
+    if (receipt2) {
+      receipt2.innerHTML = `<svg class="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7m-7 4l4 4"/></svg>`;
+    }
+
+    // Hold loop for reading, then smoothly fade and restart
+    await wait(4200);
     canvas.style.opacity = '0';
     canvas.style.transition = 'opacity 0.4s ease';
     await wait(400);
