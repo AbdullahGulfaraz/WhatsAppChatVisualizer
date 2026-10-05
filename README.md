@@ -1,6 +1,6 @@
 # 💬 ChatFlow — WhatsApp Chat Export Visualizer
 
-A lightweight, fully responsive, client-side web application that transforms exported WhatsApp `.txt` logs into an authentic, interactive chat interface[cite: 3].
+A lightweight, high-performance, client-side web application that transforms exported WhatsApp `.txt` logs and `.zip` archives into an authentic, interactive messaging experience[cite: 1, 2].
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-00a884?style=for-the-badge&logo=vercel)](https://whatsappchatvisualizer.vercel.app/)
 
@@ -9,48 +9,52 @@ A lightweight, fully responsive, client-side web application that transforms exp
 ## 🌐 Live Application
 
 Try it directly in your browser:  
-👉 **[https://whatsappchatvisualizer.vercel.app/](https://whatsappchatvisualizer.vercel.app/)**
+👉 **[https://whatsappchatvisualizer.vercel.app/](https://whatsappchatvisualizer.vercel.app/)**[cite: 1]
 
 ---
 
 ## 📌 Overview
 
-Exported WhatsApp conversations are saved as flat, unformatted plain-text files filled with timestamps, missed call entries, and raw attachment placeholders[cite: 3]. 
+Exported WhatsApp conversations are saved as flat plain-text files or compressed `.zip` archives cluttered with timestamps, missed call entries, and raw attachment tags[cite: 1, 2].
 
-**ChatFlow** parses raw export logs directly inside your browser and reconstructs them into an authentic messaging UI—complete with sender identification, message alignment, date dividers, search functionality, and mobile drawer navigation[cite: 3].
+**ChatFlow** processes these logs entirely in-memory and reconstructs them into an authentic, interactive conversation interface—complete with participant alignment, instant keyword search, and dark/light themes[cite: 2, 4].
 
-🔒 **100% Privacy Focused:** Everything runs entirely client-side[cite: 3]. No conversations, logs, or personal data are ever sent to an external server[cite: 3].
+🔒 **100% Client-Side Privacy:** Everything runs entirely in your browser session[cite: 2]. No chats, logs, media, or archives are ever uploaded or transmitted to an external server[cite: 2].
 
 ---
 
 ## ✨ Features
 
-- **Multi-Format Parsing:** Seamlessly processes both iOS bracket timestamps (`[DD/MM/YYYY, HH:mm:ss]`) and Android standard (12-hour AM/PM and 24-hour) logs[cite: 3].
-- **Noise & Unicode Filtering:** Strips phantom call records, empty lines, and invisible Unicode whitespace characters (`\u200B`, `\u202F`, `\u00A0`), ensuring only valid messages appear.
-- **Dynamic Perspective Switcher:** Detects all participants in the thread and lets you choose who you are, correctly aligning your messages to the right with read receipts and recipients to the left[cite: 3].
-- **Live In-Chat Search:** Full-text keyword search across messages and senders with instant highlighting and counter badges[cite: 3].
-- **Fully Responsive & Touch-Optimized:** Built with slide-over drawer navigation, touch-friendly tap targets, and dynamic viewport sizing (`100dvh`) for flawless behavior across mobile phones, tablets, and desktops.
-- **Dark & Light Themes:** Signature WhatsApp-inspired color themes and wallpaper patterns with persistent local storage saving[cite: 3].
-- **Export & Archival:** Save parsed chats to structured JSON or trigger clean print-to-PDF formatting[cite: 3].
-- **Zero Build Dependencies:** Pure HTML5, modern vanilla JavaScript (ES6+), and Tailwind CSS—no bundlers or complex setups required[cite: 3].
+- **`.zip` & `.txt` Dual Ingestion:** Automatically unzips and locates chat logs (`_chat.txt` on iOS or named export text files on Android) directly in-browser using JSZip.
+- **Modern Interactive Landing Page:**
+  - **Split 2-Column Hero:** Clear value proposition paired with a floating, dimension-locked smartphone mockup[cite: 2].
+  - **Live Typing Simulation:** Auto-scrolling interactive chat preview demonstrating message flows, attachment previews, and dynamic read receipts (`✓✓`)[cite: 2, 4].
+  - **Auto-Hiding Header:** Sticky navigation bar that smoothly hides on scroll-down and reappears on scroll-up to maximize viewport real estate.
+  - **Dynamic Full-Screen Sections:** Clean `min-h-[100dvh]` sections covering workflow guides, bento feature highlights, and privacy specifications.
+- **Universal Multi-Format Parser:** Accurately processes both iOS bracket timestamps (`[DD/MM/YYYY, HH:mm:ss]`) and Android standard (12h AM/PM and 24h) logs[cite: 2, 4].
+- **Noise & Unicode Filtering:** Strips phantom call records, empty lines, and invisible Unicode whitespace (`\u200B`, `\u202F`, `\u00A0`) so only genuine conversation bubbles appear[cite: 4].
+- **Dynamic Perspective Switcher:** Detects all active participants and lets you pick who you are, correctly aligning your outgoing messages to the right and incoming messages to the left[cite: 2, 4].
+- **Live In-Chat Search:** Instant full-text search across messages and senders with keyword highlights and match counters[cite: 2, 4].
+- **Responsive Drawer Navigation:** Slide-over controls and touch targets optimized for mobile, tablet, and desktop viewports[cite: 2].
+- **Data Export & Print:** Export parsed chat records to structured JSON or trigger clean print-to-PDF formatting[cite: 2, 4].
 
 ---
 
 ## 🛠️ How to Use
 
-1. **Export a Chat:** Open WhatsApp on your phone > select a conversation > tap **Export Chat** > choose **Without Media**.
-2. **Open ChatFlow:** Visit [https://whatsappchatvisualizer.vercel.app/](https://whatsappchatvisualizer.vercel.app/)[cite: 3].
-3. **Load the File:** Drag and drop your `.txt` export into the upload zone (or click **Sample** to preview a demo)[cite: 3].
-4. **Choose Your Perspective:** Select your name from the participant menu on the left to set incoming vs. outgoing message bubbles[cite: 3].
-5. **Search & Read:** Browse through threads, jump to the top or bottom, or search specific terms[cite: 3].
+1. **Export a Chat:** Open WhatsApp on your device > select a chat > tap **Export Chat** > choose **Without Media** (produces a `.zip` or `.txt` file)[cite: 2].
+2. **Open ChatFlow:** Visit [https://whatsappchatvisualizer.vercel.app/](https://whatsappchatvisualizer.vercel.app/)[cite: 1].
+3. **Drop or Browse:** Drag and drop your `.txt` or `.zip` file into the hero, footer, or app workspace dropzone (or click **Try Interactive Demo** to load sample data)[cite: 2].
+4. **Select Perspective:** Pick your name from the participant menu to configure incoming vs. outgoing speech bubbles[cite: 2, 4].
+5. **Search & Relive:** Filter conversations, review participant metrics, or print records[cite: 2].
 
 ---
 
 ## 📁 Project Structure
 
 ```text
-├── index.html        # App semantic structure, modals, headers, and layouts
-├── styles.css        # Custom scrollbars, wallpaper dot patterns, and highlights
-├── script.js         # Parsing engine, state management, and DOM renderers
-├── logo.svg          # Custom signature logo and favicon
+├── index.html        # Unified SPA architecture (Landing page + Workspace view)
+├── styles.css        # Wallpaper patterns, 3D float keyframes, and scrollbar styles
+├── script.js         # Parsing engine, JSZip extractor, simulation runner & DOM manager
+├── logo.svg          # Brand icon & browser favicon
 └── README.md         # Project documentation
