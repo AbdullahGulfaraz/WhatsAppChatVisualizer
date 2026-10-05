@@ -109,96 +109,159 @@
       </div>
     </header>
 
-    <!-- Main Dynamic Full-Screen Sections -->
-    <main class="flex-1 w-full">
-
-      <!-- 1. Hero Full-Screen Section -->
+    <!-- 1. Hero Full-Screen Section (Split 2-Column with Phone Device Stance) -->
       <section id="hero"
-        class="min-h-[100dvh] flex flex-col justify-center relative overflow-hidden pt-20 pb-12 px-4 sm:px-6">
-        <div class="max-w-5xl mx-auto text-center relative z-10 w-full">
+        class="min-h-[100dvh] flex flex-col justify-center relative overflow-hidden pt-20 pb-12 px-4 sm:px-6 lg:px-8">
+        
+        <!-- Ambient background soft glow effects -->
+        <div class="absolute top-1/4 left-10 w-96 h-96 bg-wa-teal/15 dark:bg-wa-teal/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+        <div class="absolute bottom-1/4 right-10 w-96 h-96 bg-emerald-500/10 dark:bg-emerald-500/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
-          <!-- Trust Badge -->
-          <div
-            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-[11px] sm:text-xs font-semibold text-emerald-800 dark:text-emerald-300 mb-6 shadow-2xs">
-            <span class="w-2 h-2 rounded-full bg-wa-green animate-pulse"></span>
-            100% Client-Side • Your chats never leave your device
+        <div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-auto">
+
+          <!-- Left Column: Copywriting & Action CTAs -->
+          <div class="lg:col-span-7 text-center lg:text-left flex flex-col items-center lg:items-start">
+            
+            <!-- Trust Badge -->
+            <div
+              class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200/80 dark:border-emerald-800/60 text-[11px] sm:text-xs font-semibold text-emerald-800 dark:text-emerald-300 mb-6 shadow-2xs">
+              <span class="w-2 h-2 rounded-full bg-wa-green animate-pulse"></span>
+              100% Client-Side • Your chats never leave your device
+            </div>
+
+            <!-- Main Heading -->
+            <h1
+              class="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.12] mb-5">
+              Turn messy WhatsApp logs into <br class="hidden sm:inline">
+              <span
+                class="bg-gradient-to-r from-wa-teal via-emerald-400 to-teal-400 bg-clip-text text-transparent">beautiful
+                interactive chats</span>.
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="max-w-xl text-sm sm:text-base text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
+              No more parsing flat <code
+                class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-xs font-mono text-emerald-600 dark:text-emerald-400 font-semibold">.txt</code>
+              or <code
+                class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-xs font-mono text-emerald-600 dark:text-emerald-400 font-semibold">.zip</code>
+              export files. ChatFlow instantly reconstructs your memories with authentic bubbles, search, dark mode, and
+              noise filtering.
+            </p>
+
+            <!-- Primary CTAs (Placed directly beneath text on the left) -->
+            <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto">
+              <button id="btn-hero-upload"
+                class="w-full sm:w-auto px-6 py-3.5 bg-wa-teal hover:bg-wa-tealDark text-white text-sm font-bold rounded-2xl shadow-lg shadow-wa-teal/25 transition active:scale-95 flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+                Upload Chat (.txt or .zip)
+              </button>
+              <button id="btn-hero-sample"
+                class="w-full sm:w-auto px-6 py-3.5 bg-white dark:bg-wa-panelDark border border-slate-200 dark:border-wa-borderDark hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm font-semibold rounded-2xl shadow-sm transition active:scale-95 flex items-center justify-center gap-2">
+                <svg class="w-4 h-4 text-wa-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                </svg>
+                Try Interactive Demo
+              </button>
+            </div>
+
+            <!-- Feature Badges -->
+            <div class="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs text-slate-500 dark:text-slate-400 font-medium">
+              <span class="flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-wa-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                iOS & Android
+              </span>
+              <span class="flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-wa-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                Zero server upload
+              </span>
+              <span class="flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-wa-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                Instant search
+              </span>
+            </div>
+
           </div>
 
-          <h1
-            class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.15] mb-5">
-            Turn messy WhatsApp logs into <br class="hidden sm:inline">
-            <span
-              class="bg-gradient-to-r from-wa-teal via-emerald-500 to-teal-400 bg-clip-text text-transparent">beautiful
-              interactive chats</span>.
-          </h1>
+          <!-- Right Column: Authentic Dimension Smartphone Device Mockup -->
+          <div class="lg:col-span-5 flex justify-center items-center relative w-full py-4">
+            
+            <!-- Ambient Glow Halo (Stays static behind phone to prevent repaint flickers) -->
+            <div class="absolute w-[360px] h-[640px] bg-gradient-to-tr from-wa-teal/30 via-emerald-400/20 to-teal-500/20 rounded-[56px] blur-3xl opacity-75 dark:opacity-40 pointer-events-none -z-10"></div>
 
-          <p class="max-w-2xl mx-auto text-sm sm:text-base text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
-            No more parsing plain <code
-              class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-xs font-mono text-emerald-600">.txt</code>
-            export files. ChatFlow instantly reconstructs your memories with authentic bubbles, search, dark mode, and
-            noise filtering.
-          </p>
-
-          <!-- Primary CTAs -->
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10">
-            <button id="btn-hero-upload"
-              class="w-full sm:w-auto px-6 py-3.5 bg-wa-teal hover:bg-wa-tealDark text-white text-sm font-bold rounded-2xl shadow-lg shadow-wa-teal/25 transition active:scale-95 flex items-center justify-center gap-2">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-              </svg>
-              Upload Chat (.txt) or (.zip)
-            </button>
-            <button id="btn-hero-sample"
-              class="w-full sm:w-auto px-6 py-3.5 bg-white dark:bg-wa-panelDark border border-slate-200 dark:border-wa-borderDark hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm font-semibold rounded-2xl shadow-sm transition active:scale-95 flex items-center justify-center gap-2">
-              <svg class="w-4 h-4 text-wa-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-              </svg>
-              Try Interactive Demo
-            </button>
-          </div>
-
-          <!-- Hero Interactive Live Typing Preview Card (Floating in the air) -->
-          <div class="relative max-w-2xl mx-auto mt-2">
-            <!-- Ambient Glow Halo behind the card -->
-            <div class="absolute -inset-1.5 bg-gradient-to-r from-wa-teal/30 via-emerald-400/20 to-teal-500/30 rounded-[32px] blur-xl opacity-75 dark:opacity-50 pointer-events-none animate-pulse"></div>
-
-            <!-- Suspended Floating Card -->
-            <div class="relative rounded-3xl p-2 bg-gradient-to-b from-white/90 via-slate-100/70 to-slate-200/50 dark:from-slate-800/90 dark:via-slate-800/60 dark:to-slate-900/80 border border-white/60 dark:border-slate-700/60 shadow-[0_25px_60px_-15px_rgba(0,168,132,0.2),0_18px_36px_-18px_rgba(0,0,0,0.35)] backdrop-blur-xl floating-card-air transition-transform duration-500">
+            <!-- Smartphone Chassis (Locked to 380px x 680px phone silhouette) -->
+            <div class="relative w-full max-w-[360px] sm:max-w-[380px] h-[650px] sm:h-[680px] rounded-[50px] p-3 bg-slate-900 border-[4px] border-slate-700/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.1)] phone-levitate transition-all duration-300">
               
-              <div class="rounded-2xl overflow-hidden bg-wa-bgLight dark:bg-wa-bgDark border border-black/5 dark:border-white/5 font-sans relative shadow-inner">
+              <!-- Screen Bezel -->
+              <div class="w-full h-full rounded-[38px] overflow-hidden bg-wa-bgLight dark:bg-wa-bgDark border border-black/20 dark:border-white/10 flex flex-col relative">
                 
-                <!-- Mini Header (Locked in place at top) -->
-                <div class="h-14 px-4 bg-white/90 dark:bg-wa-panelDark/95 backdrop-blur-md border-b border-black/5 dark:border-white/5 flex items-center justify-between z-20 relative shadow-2xs">
-                  <div class="flex items-center gap-2.5">
-                    <div class="relative">
-                      <div class="w-8 h-8 rounded-full bg-wa-teal text-white flex items-center justify-center text-xs font-bold shadow-xs">P</div>
-                      <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-wa-green border-2 border-white dark:border-wa-bgDark"></span>
-                    </div>
-                    <div>
-                      <div class="text-xs font-bold text-slate-800 dark:text-slate-100">Product Design Sprint 🚀</div>
-                      <div id="sim-status" class="text-[10px] text-slate-500 dark:text-slate-400 transition-colors">Alex, Sophia, Marcus</div>
-                    </div>
+                <!-- Dynamic Island / Speaker Pill Bar -->
+                <div class="bg-wa-panelLight dark:bg-wa-panelDark pt-2 pb-1.5 px-6 flex justify-between items-center shrink-0 z-30 select-none">
+                  <span class="text-[11px] font-bold text-slate-800 dark:text-slate-200 font-mono tracking-tight">9:41</span>
+                  <!-- Pill Notch -->
+                  <div class="w-20 h-4 bg-black rounded-full flex items-center justify-end px-2 gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-wa-green animate-pulse"></span>
+                    <span class="w-1 h-1 rounded-full bg-slate-700"></span>
                   </div>
-                  <div class="flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-wa-teal/10 text-wa-teal font-semibold">Live Simulation</span>
+                  <!-- Battery / WiFi Icons -->
+                  <div class="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+                    <div class="w-4 h-2 border border-current rounded-xs p-0.5 flex items-center">
+                      <div class="w-full h-full bg-current rounded-2xs"></div>
+                    </div>
                   </div>
                 </div>
 
-                <!-- Gradient top fade mask to seamlessly dissolve messages disappearing upward -->
-                <div class="absolute top-14 inset-x-0 h-6 bg-gradient-to-b from-wa-bgLight dark:from-wa-bgDark to-transparent pointer-events-none z-10"></div>
-
-                <!-- Chat Messages Viewport (Locked fixed height, overflows clipped upward) -->
-                <div class="h-[280px] p-4 overflow-hidden relative flex flex-col justify-end select-none">
-                  <div id="sim-chat-canvas" class="space-y-2.5 text-xs w-full transition-all duration-500 ease-out">
-                    <!-- Messages dynamically appended here -->
+                <!-- WhatsApp Chat Header -->
+                <div class="h-14 px-3 bg-wa-panelLight dark:bg-wa-panelDark border-b border-wa-borderLight dark:border-wa-borderDark flex items-center justify-between z-20 relative shrink-0 shadow-2xs">
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <div class="relative shrink-0">
+                      <div class="w-8 h-8 rounded-full bg-wa-teal text-white flex items-center justify-center text-xs font-bold shadow-xs">P</div>
+                      <span class="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-wa-green border border-white dark:border-wa-bgDark"></span>
+                    </div>
+                    <div class="truncate">
+                      <div class="text-xs font-bold text-slate-900 dark:text-slate-100 truncate">Product Design Sprint 🚀</div>
+                      <div id="sim-status" class="text-[10px] text-slate-500 dark:text-slate-400 font-medium truncate">Alex, Sophia, Marcus</div>
+                    </div>
                   </div>
+                  <div class="flex items-center gap-2 text-wa-teal dark:text-emerald-400 shrink-0">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/></svg>
+                  </div>
+                </div>
+
+                <!-- Chat Canvas (Takes remaining vertical space cleanly without page shifts) -->
+                <div id="sim-scroll-viewport" class="flex-1 p-3 overflow-hidden relative flex flex-col justify-end select-none">
+                  <!-- Gradient top fade mask to dissolve older messages upward -->
+                  <div class="absolute top-0 inset-x-0 h-10 bg-gradient-to-b from-wa-bgLight dark:from-wa-bgDark to-transparent pointer-events-none z-10"></div>
+                  
+                  <div id="sim-chat-canvas" class="space-y-2.5 w-full flex flex-col justify-end">
+                    <!-- Messages auto-appended here -->
+                  </div>
+                </div>
+
+                <!-- Realistic WhatsApp Bottom Input Bar Mockup -->
+                <div class="h-12 bg-wa-panelLight dark:bg-wa-panelDark px-2.5 flex items-center gap-2 border-t border-wa-borderLight dark:border-wa-borderDark shrink-0">
+                  <div class="w-6 h-6 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-500 flex items-center justify-center text-xs">+</div>
+                  <div class="flex-1 h-8 rounded-full bg-white dark:bg-wa-bgDark border border-slate-200 dark:border-slate-700/80 px-3 flex items-center text-[11px] text-slate-400">
+                    Type a message...
+                  </div>
+                  <div class="w-7 h-7 rounded-full bg-wa-teal text-white flex items-center justify-center">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
+                  </div>
+                </div>
+
+                <!-- Bottom Home Indicator Bar -->
+                <div class="bg-wa-panelLight dark:bg-wa-panelDark py-1.5 flex justify-center shrink-0">
+                  <div class="w-28 h-1 rounded-full bg-slate-400/60 dark:bg-slate-600"></div>
                 </div>
 
               </div>
             </div>
+
           </div>
 
         </div>
